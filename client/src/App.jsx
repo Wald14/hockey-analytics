@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Components
 import MainNavbar from './components/MainNavbar'
-import StandingsTable from './components/StandingsTable'
+import StandingsPage from './pages/StandingsPage'
 
 // CSS and Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,10 +12,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   return (
-    <>
-      <MainNavbar/>
-      <StandingsTable />
-    </>
+    <BrowserRouter>
+      <MainNavbar />
+      <Routes>
+        {/* <Route path='/' element={} /> */}
+        <Route path='/standings' element={<StandingsPage/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
