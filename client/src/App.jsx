@@ -1,12 +1,12 @@
 import './App.css'
 
-import Standings from './components/Standings'
+import StandingsTable from './components/StandingsTable'
 
 function App() {
 
   return (
     <>
-      <Standings />
+      <StandingsTable />
     </>
   )
 }
