@@ -19,8 +19,4 @@ router.get('/standings', async (req, res) => {
   }
 })
 
-
-
-
-
 module.exports = router;
