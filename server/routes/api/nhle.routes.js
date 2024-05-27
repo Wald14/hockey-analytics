@@ -19,4 +19,20 @@ router.get('/standings', async (req, res) => {
   }
 })
 
+// Retrieve Team's Current Roster
+router.get('/roster/:teamAbbrev', async (req, res) => {
+  try {
+    const {teamAbbrev} = req.params
+    const response = await fetch(`${nhleBaseURL}/roster/${teamAbbrev}/current`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json();
+    res.json(data)
+  } catch (err) {
+    console.log('Error fecthing roster:', err)
+    res.status(500).json({err: 'Failed to fetch roster'})
+  }
+})
+
 module.exports = router;
