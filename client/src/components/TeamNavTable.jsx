@@ -43,8 +43,8 @@ export default function TeamNavTable() {
                       <img src={team.teamLogo} style={{ height: '40px', margin: '8px' }} />
                     </Col>
                     <Col>
-                      <Nav.Link href={`/team/roster/${team.teamAbbrev}`} style={{ margin: '0px' }}>{team.teamName}</Nav.Link>
-                      <p style={{ fontSize: '12px', margin: '0px' }}>Statistics | Schedule | Roster | Tickets</p>
+                      <p style={{ margin: '0px' }}>{team.teamName}</p>
+                      <p style={{ fontSize: '12px', margin: '0px' }}>Statistics | Schedule | <a href={`/team/roster/${team.teamAbbrev}`}>Roster</a> | Tickets</p>
                     </Col>
                   </Row>
                 )

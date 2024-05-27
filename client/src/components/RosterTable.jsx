@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import { determineHeight, determineAge } from '../utils/math'
+
 import Table from 'react-bootstrap/Table'
 
 
@@ -40,6 +42,7 @@ export default function RoasterTable() {
           <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>#</th>
                 <th>POS</th>
@@ -53,12 +56,13 @@ export default function RoasterTable() {
             </thead>
             <tbody>
               {roster.forwards.map((player, index) => (
-                <tr key={player.id}>
+                <tr key={player.id} style={{ verticalAlign: 'middle' }}>
+                  <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
                   <td>{player.firstName.default} {player.lastName.default}</td>
                   <td>{player.sweaterNumber}</td>
                   <td>{player.positionCode}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{determineAge(player.birthDate)}</td>
+                  <td>{determineHeight(player.heightInInches)}</td>
                   <td>{player.weightInPounds}</td>
                   <td>{player.shootsCatches}</td>
                   <td>{player.birthCity.default}, {player.birthCountry}</td>
@@ -72,6 +76,7 @@ export default function RoasterTable() {
           <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>#</th>
                 <th>POS</th>
@@ -86,11 +91,12 @@ export default function RoasterTable() {
             <tbody>
               {roster.defensemen.map((player, index) => (
                 <tr key={player.id}>
+                  <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
                   <td>{player.firstName.default} {player.lastName.default}</td>
                   <td>{player.sweaterNumber}</td>
                   <td>{player.positionCode}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{determineAge(player.birthDate)}</td>
+                  <td>{determineAge(player.birthDate)}</td>
                   <td>{player.weightInPounds}</td>
                   <td>{player.shootsCatches}</td>
                   <td>{player.birthCity.default}, {player.birthCountry}</td>
@@ -104,6 +110,7 @@ export default function RoasterTable() {
           <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>#</th>
                 <th>POS</th>
@@ -118,11 +125,12 @@ export default function RoasterTable() {
             <tbody>
               {roster.goalies.map((player, index) => (
                 <tr key={player.id}>
-                  <td>{player.firstName.default} {player.lastName.default}</td>
+                  <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
+                  <td> {player.firstName.default} {player.lastName.default}</td>
                   <td>{player.sweaterNumber}</td>
                   <td>{player.positionCode}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{determineAge(player.birthDate)}</td>
+                  <td>{determineHeight(player.heightInInches)}</td>
                   <td>{player.weightInPounds}</td>
                   <td>{player.shootsCatches}</td>
                   <td>{player.birthCity.default}, {player.birthCountry}</td>

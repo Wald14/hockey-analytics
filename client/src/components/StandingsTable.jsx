@@ -10,6 +10,7 @@ export default function StandingsTable() {
     try {
       const query = await fetch('/api/nhle/standings')
       const result = await query.json();
+      console.log(result)
       setStandings(result.standings)
     } catch (err) {
       console.log('Failed to fetch standings:', err)
@@ -27,9 +28,10 @@ export default function StandingsTable() {
   }
 
   return (
-    <Table striped bordered hover size='sm' responsive style={{textAlign: 'center', fontSize: '12px'}}>
+    <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
       <thead>
         <tr>
+          <th></th>
           <th>Team</th>
           <th>GP</th>
           <th>W</th>
@@ -52,6 +54,7 @@ export default function StandingsTable() {
       <tbody>
         {standings.map((team) => (
           <tr key={team.teamCommonName.default}>
+            <td><Nav.Link href={`/team/roster/${team.teamAbbrev}`}><img src={team.teamLogo} style={{ width: '32px', borderRadius: '50%' }} /></Nav.Link></td>
             <td><Nav.Link href={`/team/roster/${team.teamAbbrev}`}>{team.teamCommonName.default}</Nav.Link></td>
             <td>{team.gamesPlayed}</td>
             <td>{team.wins}</td>
