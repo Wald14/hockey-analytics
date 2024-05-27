@@ -22,7 +22,7 @@ function App() {
         <Route path='/teams' element={<TeamsPage />} />
 
 
-        <Route path='/roster/:teamAbbrev' element={<TeamPage />} />
+        <Route path='/team/roster/:teamAbbrev' element={<TeamPage />} />
       </Routes>
     </BrowserRouter>
   )

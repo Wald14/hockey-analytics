@@ -31,7 +31,7 @@ export default function RoasterTable() {
 
   return (
     <div>
-      <h2>Roster</h2>
+      <h2>{teamAbbrev} Roster</h2>
       {roster.length === 0 ? (
         <p>Loading...</p>
       ) : (

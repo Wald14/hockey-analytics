@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Table from 'react-bootstrap/Table'
+import Nav from 'react-bootstrap/Nav'
 
 export default function StandingsTable() {
   const [standings, setStandings] = useState([])
@@ -51,7 +52,7 @@ export default function StandingsTable() {
       <tbody>
         {standings.map((team) => (
           <tr key={team.teamCommonName.default}>
-            <td>{team.teamCommonName.default}</td>
+            <td><Nav.Link href={`/team/roster/${team.teamAbbrev}`}>{team.teamCommonName.default}</Nav.Link></td>
             <td>{team.gamesPlayed}</td>
             <td>{team.wins}</td>
             <td>{team.losses}</td>

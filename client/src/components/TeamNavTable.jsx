@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
 
+import Nav from 'react-bootstrap/Nav';
+
 import { Row, Col } from 'react-bootstrap';
 
 export default function TeamNavTable() {
@@ -41,7 +43,7 @@ export default function TeamNavTable() {
                       <img src={team.teamLogo} style={{ height: '40px', margin: '8px' }} />
                     </Col>
                     <Col>
-                      <p style={{ margin: '0px' }}>{team.teamName}</p>
+                      <Nav.Link href={`/team/roster/${team.teamAbbrev}`} style={{ margin: '0px' }}>{team.teamName}</Nav.Link>
                       <p style={{ fontSize: '12px', margin: '0px' }}>Statistics | Schedule | Roster | Tickets</p>
                     </Col>
                   </Row>
