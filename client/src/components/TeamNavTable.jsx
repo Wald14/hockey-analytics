@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
 
-import Nav from 'react-bootstrap/Nav';
-
 import { Row, Col } from 'react-bootstrap';
 
 export default function TeamNavTable() {

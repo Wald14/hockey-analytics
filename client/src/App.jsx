@@ -6,6 +6,8 @@ import MainNavbar from './components/MainNavbar'
 import StandingsPage from './pages/StandingsPage'
 import TeamsPage from './pages/TeamsPage';
 import TeamPage from './pages/TeamPage';
+import PlayerPage from './pages/PlayerPage'
+
 
 // CSS and Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +24,7 @@ function App() {
         <Route path='/teams' element={<TeamsPage />} />
 
 
+        <Route path='/player/:playerId' element={<PlayerPage />} />
         <Route path='/team/roster/:teamAbbrev' element={<TeamPage />} />
       </Routes>
     </BrowserRouter>
