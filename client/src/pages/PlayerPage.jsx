@@ -1,26 +1,114 @@
 import { useState, useEffect } from 'react'
+import {useParams} from 'react-router-dom'
+
+import { calculatePROD } from '../utils/math'
+
+import Table from 'react-bootstrap/Table'
 
 export default function PlayerPage() {
-
+  // Destructure Params
+  const {playerId} = useParams()
+  // Establish Player Data
   const [player, setPlayer] = useState()
 
+  // API call for player data
   async function getPlayer() {
     try {
-      const query = await fetch('')
+      const query = await fetch(`/api/nhle/player/${playerId}/landing`)
       const result = await query.json()
+      setPlayer(result)
       console.log(result)
     } catch (err) {
       console.log(err)
     }
   }
 
+  // Run these after component mounts
   useEffect(() => {
     getPlayer()
   }, [])
 
+  // Return 'loading' while waiting for API call
+  if (!player) return <p>Loading...</p>
+
   return (
     <>
-      <h2>Player Page</h2>
+      <div style={{ display: 'flex', margin: '50px' }}>
+        <div style={{ display: 'flex' }}>
+          <img src={player.headshot} style={{ width: '100px' }} />
+          <h2>{player.firstName.default} {player.lastName.default}</h2>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: "column", margin: '50px' }}>
+        <h3>Season Log</h3>
+        <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
+          <caption>
+            <p style={{margin: '0px'}}>GP: Games Played</p>
+            <p style={{margin: '0px'}}>G: Goals</p>
+            <p style={{margin: '0px'}}>A: Assists</p>
+            <p style={{margin: '0px'}}>PTS: Points (Goals + Assists)</p>
+            <p style={{margin: '0px'}}>SOG: Shots on Goal</p>
+            <p style={{margin: '0px'}}>SCPT: Scoring Percentage (Goals/Shots)</p>
+            <p style={{margin: '0px'}}>PPG: Power Play Goals</p>
+            <p style={{margin: '0px'}}>PPG: Power Play Assists</p>
+            <p style={{margin: '0px'}}>SHG: Short Handed Goals</p>
+            <p style={{margin: '0px'}}>SHA: Short Handed Assists</p>
+            <p style={{margin: '0px'}}>GWG: Game Winning Goals</p>
+            <p style={{margin: '0px'}}>TOI/G: Time on Ice per Game</p>
+            <p style={{margin: '0px'}}>PROD: the average ice time per point recorded</p>
+
+          </caption>
+          <thead>
+            <tr>
+              <th>Season</th>
+              <th>League</th>
+              <th>Team</th>
+              <th>GP</th>
+              <th>G</th>
+              <th>A</th>
+              <th>PTS</th>
+              <th>+/-</th>
+              <th>PIM</th>
+              <th>SOG</th>
+              <th>SCPT</th>
+              <th>PPG</th>
+              <th>PPA</th>
+              <th>SHG</th>
+              <th>SHA</th>
+              <th>GWG</th>
+              <th>TOI/G</th>
+              <th>PROD</th>
+            </tr>
+          </thead>
+          <tbody>
+            {player.seasonTotals
+              .filter(team => team.gameTypeId === 2)
+              .map((team, index) => (
+                <tr key={index}>
+                  <td>{team.season.toString().substring(2, 4)}-{team.season.toString().substring(6, 8)}</td>
+                  <td>{team.leagueAbbrev}</td>
+                  <td>{team.teamName.default}</td>
+                  <td>{team.gamesPlayed}</td>
+                  <td>{team.goals}</td>
+                  <td>{team.assists}</td>
+                  <td>{team.points}</td>
+                  <td>{team.plusMinus}</td>
+                  <td>{team.pim}</td>
+                  <td>{team.shots}</td>
+                  <td>{team.shootingPctg ? (team.shootingPctg * 100).toFixed(1) : ''}</td>
+                  <td>{team.powerPlayGoals}</td>
+                  <td>{team.powerPlayPoints != undefined ? team.powerPlayPoints - team.powerPlayGoals : ''}</td>
+                  <td>{team.shorthandedGoals}</td>
+                  <td>{team.shorthandedPoints != undefined ? team.shorthandedPoints - team.shorthandedGoals : ''}</td>
+                  <td>{team.gameWinningGoals}</td>
+                  <td>{team.avgToi}</td>
+                  <td>{team.avgToi ? calculatePROD(team.points, team.avgToi, team.gamesPlayed) : ''}</td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </div>
     </>
   )
 }

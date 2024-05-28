@@ -34,3 +34,18 @@ export function determineAge(birthdayStr){
 
   return age;
 }
+
+
+export function calculatePROD(points, avgtoi, gamesPlayed) {
+  // Split the avgtoi string into minutes and seconds
+  const [minutes, seconds] = avgtoi.split(':').map(Number);
+
+  // Convert the time on ice to hours
+  const timeInSeconds = gamesPlayed * ((minutes * 60) + seconds)
+  const prodMins = Math.floor((timeInSeconds / points)/60)
+  const prodSecs = Math.round(((timeInSeconds / points)%60).toFixed(2))
+
+  // Calculate PROD
+  const PROD = `${prodMins}:${prodSecs}`;
+  return PROD;
+}
