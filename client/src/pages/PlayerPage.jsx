@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { calculatePROD } from '../utils/math'
 
@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table'
 
 export default function PlayerPage() {
   // Destructure Params
-  const {playerId} = useParams()
+  const { playerId } = useParams()
   // Establish Player Data
   const [player, setPlayer] = useState()
 
@@ -17,7 +17,6 @@ export default function PlayerPage() {
       const query = await fetch(`/api/nhle/player/${playerId}/landing`)
       const result = await query.json()
       setPlayer(result)
-      console.log(result)
     } catch (err) {
       console.log(err)
     }
@@ -44,22 +43,21 @@ export default function PlayerPage() {
         <h3>Season Log</h3>
         <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
           <caption>
-            <p style={{margin: '0px'}}>GP: Games Played</p>
-            <p style={{margin: '0px'}}>G: Goals</p>
-            <p style={{margin: '0px'}}>A: Assists</p>
-            <p style={{margin: '0px'}}>PTS: Points (Goals + Assists)</p>
-            <p style={{margin: '0px'}}>SOG: Shots on Goal</p>
-            <p style={{margin: '0px'}}>SCPT: Scoring Percentage (Goals/Shots)</p>
-            <p style={{margin: '0px'}}>PPG: Power Play Goals</p>
-            <p style={{margin: '0px'}}>PPG: Power Play Assists</p>
-            <p style={{margin: '0px'}}>SHG: Short Handed Goals</p>
-            <p style={{margin: '0px'}}>SHA: Short Handed Assists</p>
-            <p style={{margin: '0px'}}>GWG: Game Winning Goals</p>
-            <p style={{margin: '0px'}}>TOI/G: Time On Ice per Game</p>
-            <p style={{margin: '0px'}}>PROD-g: Average ice time per goal recorded</p>
-            <p style={{margin: '0px'}}>PROD-a: Average ice time per assist recorded</p>
-            <p style={{margin: '0px'}}>PROD-p: Average ice time per point recorded</p>
-
+            <p style={{ margin: '0px' }}>GP: Games Played</p>
+            <p style={{ margin: '0px' }}>G: Goals</p>
+            <p style={{ margin: '0px' }}>A: Assists</p>
+            <p style={{ margin: '0px' }}>PTS: Points (Goals + Assists)</p>
+            <p style={{ margin: '0px' }}>SOG: Shots on Goal</p>
+            <p style={{ margin: '0px' }}>SCPT: Scoring Percentage (Goals/Shots)</p>
+            <p style={{ margin: '0px' }}>PPG: Power Play Goals</p>
+            <p style={{ margin: '0px' }}>PPG: Power Play Assists</p>
+            <p style={{ margin: '0px' }}>SHG: Short Handed Goals</p>
+            <p style={{ margin: '0px' }}>SHA: Short Handed Assists</p>
+            <p style={{ margin: '0px' }}>GWG: Game Winning Goals</p>
+            <p style={{ margin: '0px' }}>TOI/G: Time On Ice per Game</p>
+            <p style={{ margin: '0px' }}>PROD-g: Average ice time per goal recorded</p>
+            <p style={{ margin: '0px' }}>PROD-a: Average ice time per assist recorded</p>
+            <p style={{ margin: '0px' }}>PROD-p: Average ice time per point recorded</p>
           </caption>
           <thead>
             <tr>
@@ -80,14 +78,19 @@ export default function PlayerPage() {
               <th>SHA</th>
               <th>GWG</th>
               <th>TOI/G</th>
-              <th style={{fontSize: '8px'}}>PROD-g</th>
-              <th style={{fontSize: '8px'}}>PROD-a</th>
-              <th style={{fontSize: '8px'}}>PROD-p</th>
+              <th style={{ fontSize: '8px' }}>PROD-g</th>
+              <th style={{ fontSize: '8px' }}>PROD-a</th>
+              <th style={{ fontSize: '8px' }}>PROD-p</th>
             </tr>
           </thead>
           <tbody>
             {player.seasonTotals
-              .filter(team => team.gameTypeId === 2)
+              .filter(team =>
+                team.gameTypeId === 2
+                && (team.leagueAbbrev === 'NHL')
+                // || (team.leagueAbbrev === 'AHL')
+                // || (team.leagueAbbrev === 'KHL')
+              )
               .map((team, index) => (
                 <tr key={index}>
                   <td>{team.season.toString().substring(2, 4)}-{team.season.toString().substring(6, 8)}</td>

@@ -30,21 +30,6 @@ router.get('/teams', async (req, res) => {
       )
     })
 
-    // // sort teams to be in alphabetical order
-    // teams.sort((a, b) => a.teamName.localeCompare(b.teamName));
-
-    // // sort by conference
-    // teams.sort((a, b) => {
-    //   // First compare by divisionName
-    //   const conferenceComparison = a.divisionName.localeCompare(b.divisionName);
-    //   // If divisionName is the same, then compare by teamName
-    //   if (conferenceComparison !== 0) {
-    //     return conferenceComparison;
-    //   } else {
-    //     return a.teamName.localeCompare(b.teamName);
-    //   }
-    // })
-
     // Group teams by division
     const groupedTeams = teams.reduce((accumulator, team) => {
       const division = team.divisionName
@@ -76,5 +61,50 @@ router.get('/teams', async (req, res) => {
     res.status(500).json({ err: 'Failed to fetch teams' })
   }
 })
+
+// Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
+router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
+  try {
+    const { playerId, season, gameType } = req.params;
+    const response = await fetch(`${nhleBaseURL}/player/${playerId}/game-log/${season}/${gameType}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    const seasonArr = data.playerStatsSeasons
+      .map(season => season.season)
+      .filter(season => season != data.seasonId);
+
+    let gamesArr = data.gameLog;
+
+    const fetchSeasonData = async (season) => {
+      const response = await fetch(`${nhleBaseURL}/player/${playerId}/game-log/${season}/${gameType}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const seasonData = await response.json();
+      return seasonData.gameLog;
+    };
+
+    const seasonDataPromises = seasonArr.map(season => fetchSeasonData(season));
+
+    const seasonDataResults = await Promise.all(seasonDataPromises);
+
+    seasonDataResults.forEach(seasonGames => {
+      gamesArr = gamesArr.concat(seasonGames);
+    });
+
+    res.json(gamesArr);
+  } catch (err) {
+    console.error('Error fetching full game-log:', err);
+    res.status(500).json({ err: 'Failed to fetch full game-log' });
+  }
+});
+
+
+
 
 module.exports = router;
