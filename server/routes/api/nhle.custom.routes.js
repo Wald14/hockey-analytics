@@ -65,6 +65,11 @@ router.get('/teams', async (req, res) => {
 // Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
 router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
   try {
+    //----------------------------------
+    const filterKey = ''
+    const filterCondition = ''
+
+
     const { playerId, season, gameType } = req.params;
     const response = await fetch(`${nhleBaseURL}/player/${playerId}/game-log/${season}/${gameType}`);
     
@@ -78,6 +83,8 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
       .map(season => season.season)
       .filter(season => season != data.seasonId);
 
+      data.gameLog.forEach(game => game.seasonId = data.seasonId)
+
     let gamesArr = data.gameLog;
 
     const fetchSeasonData = async (season) => {
@@ -86,6 +93,9 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const seasonData = await response.json();
+
+      seasonData.gameLog.forEach(game => game.seasonId = seasonData.seasonId)
+
       return seasonData.gameLog;
     };
 
@@ -97,14 +107,35 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
       gamesArr = gamesArr.concat(seasonGames);
     });
 
-    res.json(gamesArr);
+    let filteredGames = gamesArr
+    if (filterKey && filterCondition) {
+      filteredGames = gamesArr.filter(game => {
+        const gameValue = game[filterKey];
+        const [operator, value] = filterCondition.split(' ');
+
+        switch (operator) {
+          case '>':
+            return gameValue > Number(value);
+          case '<':
+            return gameValue < Number(value);
+          case '>=':
+            return gameValue >= Number(value);
+          case '<=':
+            return gameValue <= Number(value);
+          case '==':
+            return gameValue == value;
+          case '!=':
+            return gameValue != value;
+          default:
+            return true;
+        }
+      })}
+
+    res.json(filteredGames);
   } catch (err) {
     console.error('Error fetching full game-log:', err);
     res.status(500).json({ err: 'Failed to fetch full game-log' });
   }
 });
-
-
-
 
 module.exports = router;
