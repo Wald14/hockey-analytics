@@ -55,8 +55,10 @@ export default function PlayerPage() {
             <p style={{margin: '0px'}}>SHG: Short Handed Goals</p>
             <p style={{margin: '0px'}}>SHA: Short Handed Assists</p>
             <p style={{margin: '0px'}}>GWG: Game Winning Goals</p>
-            <p style={{margin: '0px'}}>TOI/G: Time on Ice per Game</p>
-            <p style={{margin: '0px'}}>PROD: the average ice time per point recorded</p>
+            <p style={{margin: '0px'}}>TOI/G: Time On Ice per Game</p>
+            <p style={{margin: '0px'}}>PROD-g: Average ice time per goal recorded</p>
+            <p style={{margin: '0px'}}>PROD-a: Average ice time per assist recorded</p>
+            <p style={{margin: '0px'}}>PROD-p: Average ice time per point recorded</p>
 
           </caption>
           <thead>
@@ -78,7 +80,9 @@ export default function PlayerPage() {
               <th>SHA</th>
               <th>GWG</th>
               <th>TOI/G</th>
-              <th>PROD</th>
+              <th style={{fontSize: '8px'}}>PROD-g</th>
+              <th style={{fontSize: '8px'}}>PROD-a</th>
+              <th style={{fontSize: '8px'}}>PROD-p</th>
             </tr>
           </thead>
           <tbody>
@@ -103,6 +107,8 @@ export default function PlayerPage() {
                   <td>{team.shorthandedPoints != undefined ? team.shorthandedPoints - team.shorthandedGoals : ''}</td>
                   <td>{team.gameWinningGoals}</td>
                   <td>{team.avgToi}</td>
+                  <td>{team.avgToi ? calculatePROD(team.goals, team.avgToi, team.gamesPlayed) : ''}</td>
+                  <td>{team.avgToi ? calculatePROD(team.assists, team.avgToi, team.gamesPlayed) : ''}</td>
                   <td>{team.avgToi ? calculatePROD(team.points, team.avgToi, team.gamesPlayed) : ''}</td>
                 </tr>
               ))}

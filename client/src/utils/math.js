@@ -1,11 +1,11 @@
-export function determineHeight(htInInches){
+export function determineHeight(htInInches) {
   const feet = Math.floor(htInInches / 12)
   const inches = htInInches % 12
-  return(`${feet}'${inches}"`)
+  return (`${feet}'${inches}"`)
 }
 
 
-export function determineAge(birthdayStr){
+export function determineAge(birthdayStr) {
   // Parse the birthday string into a Date object with explicit time
   const [year, month, day] = birthdayStr.split('-').map(Number);
   const birthDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0)); // Using UTC to avoid time zone issues
@@ -20,15 +20,15 @@ export function determineAge(birthdayStr){
 
   // Calculate age in years
   let age = today.getUTCFullYear() - birthDate.getUTCFullYear();
-  if (age < 0){
+  if (age < 0) {
     throw new Error("Invalid date. Date entered must be from the past.")
   }
-  
+
   // Check if birthday hasn't happened yet this year
   const monthDiff = today.getUTCMonth() - birthDate.getUTCMonth();
   const dayDiff = today.getUTCDate() - birthDate.getUTCDate();
 
-  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)){
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
     age--;
   }
 
@@ -36,14 +36,20 @@ export function determineAge(birthdayStr){
 }
 
 
-export function calculatePROD(points, avgtoi, gamesPlayed) {
-  // Split the avgtoi string into minutes and seconds
-  const [minutes, seconds] = avgtoi.split(':').map(Number);
+export function calculatePROD(points, avgToi, gamesPlayed) {
+  if (points === 0) return ''
 
-  // Convert the time on ice to hours
-  const timeInSeconds = gamesPlayed * ((minutes * 60) + seconds)
-  const prodMins = Math.floor((timeInSeconds / points)/60)
-  const prodSecs = Math.round(((timeInSeconds / points)%60).toFixed(2))
+  // Split the avgToi string into minutes and seconds
+  const [minutes, seconds] = avgToi.split(':').map(Number);
+
+  // Convert the time on ice to seconds
+  const avgToiInSeconds = gamesPlayed * ((minutes * 60) + seconds)
+  const prodMins = Math.floor((avgToiInSeconds / points) / 60)
+  let prodSecs = Math.round(((avgToiInSeconds / points) % 60).toFixed(2))
+
+  if (prodSecs < 10) {
+    prodSecs = '0' + prodSecs
+  }
 
   // Calculate PROD
   const PROD = `${prodMins}:${prodSecs}`;

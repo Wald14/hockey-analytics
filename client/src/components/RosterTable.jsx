@@ -92,7 +92,7 @@ export default function RoasterTable() {
               {roster.defensemen.map((player, index) => (
                 <tr key={player.id}>
                   <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
-                  <td>{player.firstName.default} {player.lastName.default}</td>
+                  <td><a href={`/player/${player.id}`}>{player.firstName.default} {player.lastName.default}</a></td>
                   <td>{player.sweaterNumber}</td>
                   <td>{player.positionCode}</td>
                   <td>{determineAge(player.birthDate)}</td>
@@ -126,7 +126,7 @@ export default function RoasterTable() {
               {roster.goalies.map((player, index) => (
                 <tr key={player.id}>
                   <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
-                  <td> {player.firstName.default} {player.lastName.default}</td>
+                  <td><a href={`/player/${player.id}`}>{player.firstName.default} {player.lastName.default}</a></td>
                   <td>{player.sweaterNumber}</td>
                   <td>{player.positionCode}</td>
                   <td>{determineAge(player.birthDate)}</td>
