@@ -32,7 +32,7 @@ export default function StandingsTable() {
     <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
       <thead>
         <tr>
-          <th></th>
+          <th>Pl</th>
           <th>Team</th>
           <th>GP</th>
           <th>W</th>
@@ -53,10 +53,19 @@ export default function StandingsTable() {
         </tr>
       </thead>
       <tbody>
-        {standings.map((team) => (
+        {standings.map((team, index) => (
           <tr key={team.teamCommonName.default}>
-            <td><Nav.Link href={`/team/roster/${team.teamAbbrev}`}><img src={team.teamLogo} style={{ width: '32px', borderRadius: '50%' }} /></Nav.Link></td>
-            <td><Nav.Link href={`/team/roster/${team.teamAbbrev}`}>{team.teamCommonName.default}</Nav.Link></td>
+            <td>{index + 1}</td>
+            <td>
+              <div style={{display: 'flex'}}>
+                <Nav.Link
+                  href={`/team/roster/${team.teamAbbrev}`}
+                  style={{ textDecoration: 'underline' }}>
+                <img src={team.teamLogo} style={{ width: '32px', borderRadius: '50%' }} />
+                  {team.teamCommonName.default}
+                </Nav.Link>
+              </div>
+            </td>
             <td>{team.gamesPlayed}</td>
             <td>{team.wins}</td>
             <td>{team.losses}</td>
