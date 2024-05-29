@@ -62,12 +62,23 @@ router.get('/teams', async (req, res) => {
   }
 })
 
+
+
+
+
+
+
+
+
+// Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
 // Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
 router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
   try {
     //----------------------------------
-    const filterKey = ''
-    const filterCondition = ''
+    const filterKey = 'goals'
+    const filterCondition = '> 2'
+
+    console.log(req.query)
 
 
     const { playerId, season, gameType } = req.params;
@@ -107,31 +118,18 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
       gamesArr = gamesArr.concat(seasonGames);
     });
 
-    let filteredGames = gamesArr
-    if (filterKey && filterCondition) {
-      filteredGames = gamesArr.filter(game => {
-        const gameValue = game[filterKey];
-        const [operator, value] = filterCondition.split(' ');
+    const shotsVsGoals = []
+    
+    gamesArr.forEach(game=>{
+      shotsVsGoals.push({
+        x: game.shots,
+        y: game.goals
+      })
+    })
 
-        switch (operator) {
-          case '>':
-            return gameValue > Number(value);
-          case '<':
-            return gameValue < Number(value);
-          case '>=':
-            return gameValue >= Number(value);
-          case '<=':
-            return gameValue <= Number(value);
-          case '==':
-            return gameValue == value;
-          case '!=':
-            return gameValue != value;
-          default:
-            return true;
-        }
-      })}
+    res.json(shotsVsGoals)
 
-    res.json(filteredGames);
+    // res.json(gamesArr.filter(game => game[filterKey] > 2));
   } catch (err) {
     console.error('Error fetching full game-log:', err);
     res.status(500).json({ err: 'Failed to fetch full game-log' });
@@ -139,3 +137,9 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
 });
 
 module.exports = router;
+
+
+// module.exports = router;
+
+// Request Example: GET /player/:playerId/game-log/:season/:gameType?filters={"goals":">2"}
+// GET /player/:playerId/game-log/:season/:gameType?filters={"goals":">2","assists":">=1","opponentCommonName.default":"Kraken"}
