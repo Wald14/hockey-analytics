@@ -8,10 +8,8 @@ const nhleBaseURL = 'https://api-web.nhle.com/v1'
 // Retrieve Player Information
 router.get('/player/:playerId/landing', async (req, res) => {
   try {
-    console.log('hit')
     const {playerId} = req.params
     const response = await fetch(`${nhleBaseURL}/player/${playerId}/landing`)
-    console.log(response)
     if(!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }

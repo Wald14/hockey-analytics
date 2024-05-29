@@ -1,32 +1,26 @@
+// React
 import { useState, useEffect } from "react"
 
+// Utils -> Api routes
+import { getTeams } from "../utils/api/nhle.routes";
+
+// React Boostrap
 import { Row, Col } from 'react-bootstrap';
+
 
 export default function TeamNavTable() {
 
   const [teams, setTeams] = useState()
 
-  async function getTeams() {
-    try {
-      const query = await fetch('/api/nhle/cust/teams')
-      const result = await query.json()
-      setTeams(result)
-      console.log(result)
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
+  // Fetch roster data
   useEffect(() => {
-    getTeams()
+    getTeams().then(data => setTeams(data))
   }, [])
 
+  // Loading
+  if (!teams) return <p>Loading...</p>
 
-  if (!teams) {
-    return <p>Loading...</p>
-  }
-
+  
   return (
     <Row style={{ maxWidth: '850px' }}>
       {Object.entries(teams).map(([key, value]) => {

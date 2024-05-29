@@ -1,31 +1,32 @@
+// React
 import { useState, useEffect } from 'react';
 
+// Utils -> Api routes
+import { getStandings } from '../utils/api/nhle.routes';
+
+// React Bootstrap
 import Table from 'react-bootstrap/Table'
 import Nav from 'react-bootstrap/Nav'
 
+
 export default function StandingsTable() {
+
   const [standings, setStandings] = useState([])
 
-  async function getStandings() {
-    try {
-      const query = await fetch('/api/nhle/standings')
-      const result = await query.json();
-      console.log(result)
-      setStandings(result.standings)
-    } catch (err) {
-      console.log('Failed to fetch standings:', err)
-    }
-  }
+  // Currently not using this part of the dataset that is returned
+  // Putting this here as a reminder that this is also included in data set
+  const [wildCardIndicator, setWildCardIndicator] = useState()
 
-  //Run after component mounts
+  // Fetch standings data
   useEffect(() => {
-    getStandings()
+    getStandings().then(data => {
+      setStandings(data.standings)
+      setWildCardIndicator(data.wildCardIndicator)
+    })
   }, [])
 
   // Loading
-  if (standings.length === 0) {
-    return <p>Loading...</p>
-  }
+  if (standings.length === 0) return <p>Loading...</p>
 
   return (
     <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>

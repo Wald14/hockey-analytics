@@ -1,34 +1,32 @@
+// React
 import { useState, useEffect } from 'react'
 
+// Utils -> Api routes
+import { getRoster } from '../utils/api/nhle.routes'
+
+// Utils -> Math
 import { determineHeight, determineAge } from '../utils/math'
 
+// React Boostrap
 import Table from 'react-bootstrap/Table'
 
 
 export default function RoasterTable() {
-
+  // ----------------------------------------
+  // ----------------------------------------
+  // DELETE LATER AND REPLACE WITH PARAMS!!!
   const teamAbbrev = 'MIN'
+  // ----------------------------------------
+  // ----------------------------------------
 
   const [roster, setRoster] = useState()
 
-  async function getRoster() {
-    try {
-      const query = await fetch(`/api/nhle/roster/${teamAbbrev}`)
-      const result = await query.json()
-      setRoster(result)
-
-      console.log(result)
-    } catch (err) {
-      console.log(err)
-    }
-
-  }
-
+  // Fetch roster data
   useEffect(() => {
-    getRoster()
-  }, [])
+    getRoster(teamAbbrev).then(data => setRoster(data))
+  }, [teamAbbrev])
 
-
+  // Loading
   if (!roster) return <p>Loading...</p>
 
   return (

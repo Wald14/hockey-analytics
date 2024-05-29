@@ -1,33 +1,29 @@
+// React & React-Router-Dom
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+// Utils -> Api Routes
+import { getPlayer } from '../utils/api/nhle.routes'
+
+// Utils -> Math
 import { calculatePROD } from '../utils/math'
 
+// React Bootstrap
 import Table from 'react-bootstrap/Table'
 
-export default function PlayerPage() {
-  // Destructure Params
-  const { playerId } = useParams()
-  // Establish Player Data
-  const [player, setPlayer] = useState()
 
-  // API call for player data
-  async function getPlayer() {
-    try {
-      const query = await fetch(`/api/nhle/player/${playerId}/landing`)
-      const result = await query.json()
-      setPlayer(result)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+export default function PlayerPage() {
+
+  const { playerId } = useParams()
+
+  const [player, setPlayer] = useState()
 
   // Run these after component mounts
   useEffect(() => {
-    getPlayer()
-  }, [])
+    getPlayer(playerId).then(data => setPlayer(data))
+  }, [playerId])
 
-  // Return 'loading' while waiting for API call
+  // Loading
   if (!player) return <p>Loading...</p>
 
   return (
