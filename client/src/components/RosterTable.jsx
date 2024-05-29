@@ -1,5 +1,6 @@
-// React
+// React & React-Router-Dom
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 // Utils -> Api routes
 import { getRoster } from '../utils/api/nhle.routes'
@@ -12,12 +13,8 @@ import Table from 'react-bootstrap/Table'
 
 
 export default function RoasterTable() {
-  // ----------------------------------------
-  // ----------------------------------------
-  // DELETE LATER AND REPLACE WITH PARAMS!!!
-  const teamAbbrev = 'MIN'
-  // ----------------------------------------
-  // ----------------------------------------
+
+  const {teamAbbrev} = useParams()
 
   const [roster, setRoster] = useState()
 
