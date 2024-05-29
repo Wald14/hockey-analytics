@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 const nhleBaseURL = 'https://api-web.nhle.com/v1'
 
-// Retrieve the most up to date standings
+// Retrieve teams divided by division
 router.get('/teams', async (req, res) => {
   try {
     const response = await fetch(`${nhleBaseURL}/standings/now`);

@@ -57,11 +57,18 @@ export default function StandingsTable() {
           <tr key={team.teamCommonName.default}>
             <td>{index + 1}</td>
             <td>
-              <div style={{display: 'flex'}}>
+              <div style={{ display: 'flex' }}>
                 <Nav.Link
                   href={`/team/roster/${team.teamAbbrev}`}
                   style={{ textDecoration: 'underline' }}>
-                <img src={team.teamLogo} style={{ width: '32px', borderRadius: '50%' }} />
+                  <img
+                    src={team.teamLogo}
+                    style={{
+                      width: '32px',
+                      borderRadius: '50%',
+                      marginRight: '4px'
+                    }}
+                  />
                   {team.teamCommonName.default}
                 </Nav.Link>
               </div>

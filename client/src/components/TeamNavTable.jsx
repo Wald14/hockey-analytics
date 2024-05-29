@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 
 // Utils -> Api routes
-import { getTeams } from "../utils/api/nhle.routes";
+import { getTeams } from "../utils/api/nhle.custom.routes";
 
 // React Boostrap
 import { Row, Col } from 'react-bootstrap';

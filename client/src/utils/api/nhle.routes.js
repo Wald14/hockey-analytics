@@ -1,5 +1,8 @@
+// API Routes that hit the nhle.routes.js file on the proxy server
 
-export async function getPlayer(playerId) {
+
+// Retrieve Player Information
+export async function getPlayerInfo(playerId) {
   try {
     const query = await fetch(`/api/nhle/player/${playerId}/landing`)
     const result = await query.json()
@@ -10,6 +13,19 @@ export async function getPlayer(playerId) {
 }
 
 
+// Retrieve Player Game Log from Certain Season and Game Type (2=Reg, 3=Playoff)
+export async function getPlayerGameLog(playerId, season, gameType) {
+  try {
+    const query = await fetch(`/api/nhle/player/${playerId}/game-log/${season}/${gameType}`)
+    const result = await query.json()
+    return result
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+// Retrieve Team's Current Roster
 export async function getRoster(teamAbbrev) {
   try {
     const query = await fetch(`/api/nhle/roster/${teamAbbrev}`)
@@ -21,6 +37,7 @@ export async function getRoster(teamAbbrev) {
 }
 
 
+// Retrieve the most up to date standings
 export async function getStandings() {
   try {
     const query = await fetch('/api/nhle/standings')
@@ -28,16 +45,5 @@ export async function getStandings() {
     return result
   } catch (err) {
     console.log('Failed to fetch standings:', err)
-  }
-}
-
-
-export async function getTeams() {
-  try {
-    const query = await fetch('/api/nhle/cust/teams')
-    const result = await query.json()
-    return result
-  } catch (err) {
-    console.log(err)
   }
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // Utils -> Api Routes
-import { getPlayer } from '../utils/api/nhle.routes'
+import { getPlayerInfo } from '../utils/api/nhle.routes'
 
 // Utils -> Math
 import { calculatePROD } from '../utils/math'
@@ -20,7 +20,7 @@ export default function PlayerPage() {
 
   // Run these after component mounts
   useEffect(() => {
-    getPlayer(playerId).then(data => setPlayer(data))
+    getPlayerInfo(playerId).then(data => setPlayer(data))
   }, [playerId])
 
   // Loading
