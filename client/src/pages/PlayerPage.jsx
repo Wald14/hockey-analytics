@@ -42,7 +42,7 @@ export default function PlayerPage() {
 
       <div style={{ display: 'flex', flexDirection: "column", margin: '0px 50px' }}>
         <div style={{ display: 'flex', gap: '20px' }}>
-          <h3>Season Log</h3>
+          <h3>Regular Season</h3>
           <Form style={{alignSelf: 'center'}}>
             <Form.Switch
               id="display-nhl-only-switch"
@@ -103,9 +103,9 @@ export default function PlayerPage() {
                   return team.gameTypeId === 2 && (team.leagueAbbrev === 'NHL')
                 } else {
                   return team.gameTypeId === 2
-                    && (team.leagueAbbrev === 'NHL')
-                    || (team.leagueAbbrev === 'AHL')
-                    || (team.leagueAbbrev === 'KHL')
+                    // && (team.leagueAbbrev === 'NHL')
+                    // || (team.leagueAbbrev === 'AHL')
+                    // || (team.leagueAbbrev === 'KHL')
                 }
               }
               )

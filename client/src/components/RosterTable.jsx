@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+// Components
+import ScatterChart from './Charts/ScatterPlot'
+
 // Utils -> Api routes
 import { getRoster } from '../utils/api/nhle.routes'
 
@@ -18,9 +21,42 @@ export default function RoasterTable() {
 
   const [roster, setRoster] = useState()
 
+  const [htVswtData, setHtVsWtData] = useState()
+
+
+  // Format chat data
+  function formateHtVsWtData(teamRoster){
+    const data = []
+    teamRoster.forwards.forEach((player)=>{
+      data.push({
+        x: player.heightInInches,
+        y: player.weightInPounds
+      })
+    })
+    teamRoster.defensemen.forEach((player)=>{
+      data.push({
+        x: player.heightInInches,
+        y: player.weightInPounds
+      })
+    })
+    teamRoster.goalies.forEach((player)=>{
+      data.push({
+        x: player.heightInInches,
+        y: player.weightInPounds
+      })
+    })
+    setHtVsWtData(data)
+  }
+
+
+
   // Fetch roster data
   useEffect(() => {
-    getRoster(teamAbbrev).then(data => setRoster(data))
+    getRoster(teamAbbrev).then(data => {
+      setRoster(data) 
+      formateHtVsWtData(data)
+      console.log(data)
+    })
   }, [teamAbbrev])
 
   // Loading
@@ -137,6 +173,28 @@ export default function RoasterTable() {
 
         </>
       )}
+      {htVswtData &&
+        <div style={{ width: '600px', height: '400px' }}>
+          <ScatterChart
+            chartTitle={`Height vs Weight`}
+            dataset={[
+              {
+                label: '',
+                data: htVswtData,
+                backgroundColor: 'rgba(75, 192, 75, 0.6)',
+                borderColor: 'rgba(75, 192, 75, 1)',
+                borderWidth: 1,
+              },
+            ]}
+            xTitle='Height in Inches'
+            yTitle='Weight in Pounds'
+            xStepSize={2}
+            yStepSize={5}
+            showLegend={false}
+            beginAtZero='no'
+          />
+        </div>
+      }
     </div>
   )
 }
