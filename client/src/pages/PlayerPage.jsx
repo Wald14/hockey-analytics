@@ -42,21 +42,23 @@ export default function PlayerPage() {
         <h3>Season Log</h3>
         <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
           <caption>
-            <p style={{ margin: '0px' }}>GP: Games Played</p>
-            <p style={{ margin: '0px' }}>G: Goals</p>
-            <p style={{ margin: '0px' }}>A: Assists</p>
-            <p style={{ margin: '0px' }}>PTS: Points (Goals + Assists)</p>
-            <p style={{ margin: '0px' }}>SOG: Shots on Goal</p>
-            <p style={{ margin: '0px' }}>SCPT: Scoring Percentage (Goals/Shots)</p>
-            <p style={{ margin: '0px' }}>PPG: Power Play Goals</p>
-            <p style={{ margin: '0px' }}>PPG: Power Play Assists</p>
-            <p style={{ margin: '0px' }}>SHG: Short Handed Goals</p>
-            <p style={{ margin: '0px' }}>SHA: Short Handed Assists</p>
-            <p style={{ margin: '0px' }}>GWG: Game Winning Goals</p>
-            <p style={{ margin: '0px' }}>TOI/G: Time On Ice per Game</p>
-            <p style={{ margin: '0px' }}>PROD-g: Average ice time per goal recorded</p>
-            <p style={{ margin: '0px' }}>PROD-a: Average ice time per assist recorded</p>
-            <p style={{ margin: '0px' }}>PROD-p: Average ice time per point recorded</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GP: Games Played</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>G: Goals</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>A: Assists</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PTS: Points (Goals + Assists)</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SOG: Shots on Goal</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SCPT: Scoring Percentage (Goals/Shots)</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Goals</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Assists</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHG: Short Handed Goals</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHA: Short Handed Assists</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GWG: Game Winning Goals</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>TOI/G: Time On Ice per Game</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-g: Average ice time per goal recorded</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-a: Average ice time per assist recorded</p>
+              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-p: Average ice time per point recorded</p>
+            </div>
           </caption>
           <thead>
             <tr>
@@ -117,12 +119,12 @@ export default function PlayerPage() {
           </tbody>
         </Table>
       </div>
-      <div style={{margin: '0px 50px'}}>
-      <PercentChanceToScore playerId={playerId} season={'20232024'} gameType={2}/>
+      <div style={{ margin: '0px 50px' }}>
+        <PercentChanceToScore playerId={playerId} season={'20232024'} gameType={2} />
       </div>
 
 
-      <div style={{height: '200px'}}/>
+      <div style={{ height: '200px' }} />
     </>
   )
 }
