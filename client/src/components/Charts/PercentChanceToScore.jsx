@@ -1,37 +1,26 @@
+// React
 import { useState, useEffect } from 'react';
-import {
-  Chart as ChartJS,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-  Title,
-  CategoryScale,
-} from 'chart.js';
 
-import LineChart from '../components/Charts/LinePlot';
+// Chart
+import LineChart from './LinePlot';
 
-ChartJS.register(
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-  Title,
-  CategoryScale
-);
+// ChartJS
+import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, CategoryScale, } from 'chart.js';
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, Title, CategoryScale);
 
-export default function TestPage() {
+// React Boostrap
+import Placeholder from 'react-bootstrap/Placeholder'
+
+export default function PercentChanceToScore({ playerId, season, gameType }) {
   const [percentChanceToScore, setPercentChanceToScore] = useState(null);
+  const [gameTotal, setGameTotal] = useState()
 
   async function getChartData() {
     try {
-      const query = await fetch(
-        '/api/nhle/cust/player/8478864/game-log/20232024/2'
-      );
+      const query = await fetch(`/api/nhle/cust/player/${playerId}/game-log/${season}/${gameType}`);
       const result = await query.json();
       transformChartData(result);
+      setGameTotal(result.length)
     } catch (err) {
       console.log(err);
     }
@@ -74,14 +63,18 @@ export default function TestPage() {
     getChartData();
   }, []);
 
-  if (!percentChanceToScore) return <p>Loading...</p>;
+  if (!percentChanceToScore)
+    return (
+      <Placeholder as="p" animation="wave">
+        <Placeholder className="w-75" style={{ width: '600px', height: '400px' }} />
+      </Placeholder>
+    );
 
   return (
     <>
-      <h1>TEST PAGE</h1>
       <div style={{ width: '600px', height: '400px' }}>
         <LineChart
-          chartTitle='% Chance of Scoring at Least One Goal Based on Shot Total'
+          chartTitle={`% Chance of Scoring at Least One Goal Based on Shot Total (${gameTotal} games played)`}
           dataset={[
             {
               label: '% Chance to Score',
@@ -93,8 +86,10 @@ export default function TestPage() {
           ]}
           xTitle='Shots'
           yTitle='% Chance to Score'
-          stepSize={0.1}
+          xStepSize={1}
+          yStepSize={0.1}
           showLegend={false}
+          suggestedMax={1}
         />
       </div>
     </>

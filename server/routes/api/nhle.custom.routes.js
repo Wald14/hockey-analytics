@@ -63,27 +63,12 @@ router.get('/teams', async (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-// Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
 // Retrieve Player FULL Game Log for certain Game Type (2=Reg, 3=Playoff)
 router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
   try {
-    //----------------------------------
-    const filterKey = 'goals'
-    const filterCondition = '> 2'
-
-    console.log(req.query)
-
-
     const { playerId, season, gameType } = req.params;
     const response = await fetch(`${nhleBaseURL}/player/${playerId}/game-log/${season}/${gameType}`);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -111,35 +96,19 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
     };
 
     const seasonDataPromises = seasonArr.map(season => fetchSeasonData(season));
-
     const seasonDataResults = await Promise.all(seasonDataPromises);
 
     seasonDataResults.forEach(seasonGames => {
       gamesArr = gamesArr.concat(seasonGames);
     });
 
-    const shotsVsGoals = []
-    
-    gamesArr.forEach(game=>{
-      shotsVsGoals.push({
-        x: game.shots,
-        y: game.goals
-      })
-    })
+    res.json(gamesArr)
 
-    res.json(shotsVsGoals)
-
-    // res.json(gamesArr.filter(game => game[filterKey] > 2));
   } catch (err) {
     console.error('Error fetching full game-log:', err);
     res.status(500).json({ err: 'Failed to fetch full game-log' });
   }
+
 });
 
 module.exports = router;
-
-
-// module.exports = router;
-
-// Request Example: GET /player/:playerId/game-log/:season/:gameType?filters={"goals":">2"}
-// GET /player/:playerId/game-log/:season/:gameType?filters={"goals":">2","assists":">=1","opponentCommonName.default":"Kraken"}

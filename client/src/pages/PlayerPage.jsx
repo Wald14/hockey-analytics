@@ -2,6 +2,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+// Components -> Charts
+import PercentChanceToScore from '../components/Charts/PercentChanceToScore'
+
 // Utils -> Api Routes
 import { getPlayerInfo } from '../utils/api/nhle.routes'
 
@@ -35,7 +38,7 @@ export default function PlayerPage() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: "column", margin: '50px' }}>
+      <div style={{ display: 'flex', flexDirection: "column", margin: '0px 50px' }}>
         <h3>Season Log</h3>
         <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
           <caption>
@@ -114,6 +117,12 @@ export default function PlayerPage() {
           </tbody>
         </Table>
       </div>
+      <div style={{margin: '0px 50px'}}>
+      <PercentChanceToScore playerId={playerId} season={'20232024'} gameType={2}/>
+      </div>
+
+
+      <div style={{height: '200px'}}/>
     </>
   )
 }
