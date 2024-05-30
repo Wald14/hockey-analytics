@@ -13,6 +13,7 @@ import { calculatePROD } from '../utils/math'
 
 // React Bootstrap
 import Table from 'react-bootstrap/Table'
+import Form from 'react-bootstrap/Form';
 
 
 export default function PlayerPage() {
@@ -20,6 +21,7 @@ export default function PlayerPage() {
   const { playerId } = useParams()
 
   const [player, setPlayer] = useState()
+  const [displayNHLOnly, setDisplayNHLOnly] = useState(true)
 
   // Run these after component mounts
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function PlayerPage() {
 
   return (
     <>
-      <div style={{ display: 'flex', margin: '50px' }}>
+      <div style={{ display: 'flex', margin: '20px 50px' }}>
         <div style={{ display: 'flex' }}>
           <img src={player.headshot} style={{ width: '100px' }} />
           <h2>{player.firstName.default} {player.lastName.default}</h2>
@@ -39,7 +41,17 @@ export default function PlayerPage() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: "column", margin: '0px 50px' }}>
-        <h3>Season Log</h3>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <h3>Season Log</h3>
+          <Form style={{alignSelf: 'center'}}>
+            <Form.Switch
+              id="display-nhl-only-switch"
+              label="Display NHL Seasons Only"
+              checked={displayNHLOnly}
+              onChange={() => setDisplayNHLOnly(prevState => !prevState)}
+            />
+          </Form>
+        </div>
         <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
           <caption>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -86,11 +98,16 @@ export default function PlayerPage() {
           </thead>
           <tbody>
             {player.seasonTotals
-              .filter(team =>
-                team.gameTypeId === 2
-                && (team.leagueAbbrev === 'NHL')
-                // || (team.leagueAbbrev === 'AHL')
-                // || (team.leagueAbbrev === 'KHL')
+              .filter(team => {
+                if (displayNHLOnly) {
+                  return team.gameTypeId === 2 && (team.leagueAbbrev === 'NHL')
+                } else {
+                  return team.gameTypeId === 2
+                    && (team.leagueAbbrev === 'NHL')
+                    || (team.leagueAbbrev === 'AHL')
+                    || (team.leagueAbbrev === 'KHL')
+                }
+              }
               )
               .map((team, index) => (
                 <tr key={index}>
