@@ -1,4 +1,4 @@
-import RoasterTable from "../components/RosterTable"
+import RoasterTable from "../components/tables/RosterTable"
 
 export default function TeamPage() {
 

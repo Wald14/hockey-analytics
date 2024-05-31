@@ -1,4 +1,4 @@
-import TeamNavTable from '../components/TeamNavTable'
+import TeamNavTable from '../components/tables/TeamNavTable'
 
 export default function TeamsPage() {
 

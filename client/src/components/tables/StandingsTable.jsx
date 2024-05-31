@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Utils -> Api routes
-import { getStandings } from '../utils/api/nhle.routes';
+import { getStandings } from '../../utils/api/nhle.routes';
 
 // React Bootstrap
 import Table from 'react-bootstrap/Table'

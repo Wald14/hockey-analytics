@@ -1,4 +1,4 @@
-import StandingsTable from '../components/StandingsTable'
+import StandingsTable from '../components/tables/StandingsTable'
 
 export default function StandingsPage() {
 
