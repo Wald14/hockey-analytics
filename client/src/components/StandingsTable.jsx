@@ -22,6 +22,7 @@ export default function StandingsTable() {
     getStandings().then(data => {
       setStandings(data.standings)
       setWildCardIndicator(data.wildCardIndicator)
+      console.log(data)
     })
   }, [])
 
@@ -59,7 +60,7 @@ export default function StandingsTable() {
             <td>
               <div style={{ display: 'flex' }}>
                 <Nav.Link
-                  href={`/team/roster/${team.teamAbbrev}`}
+                  href={`/team/roster/${team.teamAbbrev.default}`}
                   style={{ textDecoration: 'underline' }}>
                   <img
                     src={team.teamLogo}
