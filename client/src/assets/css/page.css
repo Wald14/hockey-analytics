@@ -1,0 +1,18 @@
+.page-container{
+  display: flex;
+  justify-content: center;
+  background-color: #F8F9FA;
+}
+
+.page-sub-container{
+  margin-left: calc((100vw - 1296px) / 2);
+  margin-right: calc((100vw - 1296px) / 2);
+  width: 100%;
+}
+
+.page-header-img{
+  height: 400px;
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+}

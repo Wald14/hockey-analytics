@@ -11,6 +11,7 @@ import TestPage from './pages/TestPage';
 
 // CSS and Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/index.css'
 
 function App() {
 

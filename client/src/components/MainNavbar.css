@@ -1,0 +1,13 @@
+.navbar {
+  border-bottom: solid 6px var(--ice-blue);
+}
+
+.navbar-sub-container {
+  max-width: 1291px !important;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px
+}
