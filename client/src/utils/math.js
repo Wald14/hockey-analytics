@@ -55,3 +55,17 @@ export function calculatePROD(points, avgToi, gamesPlayed) {
   const PROD = `${prodMins}:${prodSecs}`;
   return PROD;
 }
+
+
+export function getOrdinalSuffix(number) {
+  const suffixes = ["th", "st", "nd", "rd"];
+  const v = number % 100;
+  return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+}
+
+export function getSeasonYearRange(season){
+  const yearRange = season.toString()
+  const startYear = yearRange.substring(0,4)
+  const endYear = yearRange.substring(6,8)
+  return(`${startYear}-${endYear}`)
+}

@@ -7,7 +7,6 @@ import Table from 'react-bootstrap/Table'
 
 export default function RosterPlayerInfoTable({playerList}){
 
-
   return (
     <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
       <thead>

@@ -1,0 +1,32 @@
+/* 
+Can use this website to create color gradiants 
+https://coolors.co/gradient-palette/a9dff7-f8f9fa?number=7  
+*/
+:root {
+  /* Main Color Scheme */
+  --dark-grey: #212529; /* Primary Color - Header or Footer Background*/
+  --deep-blue: #0A74DA; /* Secondary Color - Primary Buttons and Links*/
+  --ice-blue: #A9DFF7; /* Accent Color - Cards/Sections Background */
+  --bright-cyan: #17C3B2; /* Highlight Color - Secondary Buttons and Hover Effects*/
+  --light-grey: #F8F9FA; /* Neutral Color - Background Color */
+  --text-light: #FFFFFF; /* Text Color - For Dark Background */
+  --text-dark:  #212529; /* Text Color - For Light Background */
+
+  /* Gradiant Between --dark-grey & --light-grey */
+  --dg-lg-600: #212529;
+  --dg-lg-500: #45484C;
+  --dg-lg-400: #696C6F;
+  --dg-lg-300: #8D8F92;
+  --dg-lg-200: #B0B2B4;
+  --dg-lg-100: #D4D6D7;
+  --dg-lg-000: #F8F9FA;
+
+    /* Gradiant Between --ice-blue & --light-grey */
+    --dg-lg-600: #A9DFF7;
+    --dg-lg-500: #B6E3F8;
+    --dg-lg-400: #C3E8F8;
+    --dg-lg-300: #D1ECF9;
+    --dg-lg-200: #DEF0F9;
+    --dg-lg-100: #EBF5FA;
+    --dg-lg-000: #F8F9FA;
+}

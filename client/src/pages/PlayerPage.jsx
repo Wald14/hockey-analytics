@@ -3,145 +3,239 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // Components -> Charts
-import PercentChanceToScore from '../components/Charts/PercentChanceToScore'
+import SkaterStatsBySeasonTable from '../components/tables/SkaterStatsBySeasonTable'
 
-// Utils -> Api Routes
+// Utils
 import { getPlayerInfo } from '../utils/api/nhle.routes'
-
-// Utils -> Math
-import { calculatePROD } from '../utils/math'
-
-// React Bootstrap
-import Table from 'react-bootstrap/Table'
-import Form from 'react-bootstrap/Form';
-
+import {
+  determineHeight,
+  determineAge,
+  getOrdinalSuffix,
+  getSeasonYearRange
+} from '../utils/math'
 
 export default function PlayerPage() {
 
   const { playerId } = useParams()
 
   const [player, setPlayer] = useState()
-  const [displayNHLOnly, setDisplayNHLOnly] = useState(true)
 
   // Run these after component mounts
   useEffect(() => {
-    getPlayerInfo(playerId).then(data => setPlayer(data))
+    getPlayerInfo(playerId).then(data => {
+      setPlayer(data)
+      console.log('PlayerInfo', data)
+    })
   }, [playerId])
 
   // Loading
-  if (!player) return <p>Loading...</p>
+  if (!player) return <></>
 
   return (
-    <>
-      <div style={{ display: 'flex', margin: '20px 50px' }}>
-        <div style={{ display: 'flex' }}>
-          <img src={player.headshot} style={{ width: '100px' }} />
-          <h2>{player.firstName.default} {player.lastName.default}</h2>
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: "column", margin: '0px 50px' }}>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <h3>Regular Season</h3>
-          <Form style={{alignSelf: 'center'}}>
-            <Form.Switch
-              id="display-nhl-only-switch"
-              label="Display NHL Seasons Only"
-              checked={displayNHLOnly}
-              onChange={() => setDisplayNHLOnly(prevState => !prevState)}
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <div style={{width: '1248px'}}>
+        <div style={{ display: 'flex', margin: '20px 50px' }}>
+          <div style={{ width: '100%' }}>
+            <img
+              src={player.heroImage}
+              style={{
+                height: "400px",
+                width: "100%",
+                objectFit: "cover",
+                objectPosition: "top"
+              }}
             />
-          </Form>
-        </div>
-        <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
-          <caption>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GP: Games Played</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>G: Goals</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>A: Assists</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PTS: Points (Goals + Assists)</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SOG: Shots on Goal</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SCPT: Scoring Percentage (Goals/Shots)</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Goals</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Assists</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHG: Short Handed Goals</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHA: Short Handed Assists</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GWG: Game Winning Goals</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>TOI/G: Time On Ice per Game</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-g: Average ice time per goal recorded</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-a: Average ice time per assist recorded</p>
-              <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-p: Average ice time per point recorded</p>
+          </div>
+        </div >
+        <div style={{ display: 'flex', margin: '20px 50px' }}>
+
+          <div style={{ display: 'flex', width: 'max-content', textWrap: 'nowrap', color: '#212529', padding: '22px 12px 22px 22px' }}>
+            <img
+              src={player.headshot}
+              alt={`Headshot of ${player.firstName.default} ${player.lastName.default}`}
+              style={{
+                backgroundColor: '#D4D6D7',
+                border: 'solid 2px #B0B2B4',
+                borderRadius: '50%',
+                height: '160px',
+                width: '160px',
+              }}
+            />
+            <div style={{ paddingLeft: '32px' }}>
+              <h2>{player.firstName.default} {player.lastName.default}</h2>
+              <div style={{ display: 'flex' }}>
+                <img
+                  src={player.teamLogo}
+                  alt={`${player.fullTeamName.default} Logo`}
+                  style={{
+                    width: '48px',
+                    height: '32px',
+                    paddingRight: '8px',
+                    border: ''
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: '18px',
+                    margin: '0px',
+                    width: '56px',
+                    height: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderLeft: 'solid 1px #E0E0E0'
+                  }}
+                >
+                  #{player.sweaterNumber}
+                </p>
+                <p
+                  style={{
+                    fontSize: '18px',
+                    margin: '0px',
+                    width: '56px',
+                    height: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderLeft: 'solid 1px #E0E0E0'
+                  }}
+                >
+                  {player.position}
+                </p>
+              </div>
+              <div style={{ fontSize: '14px' }}>
+                <p style={{ margin: '0px' }}>
+                  <span style={{fontWeight: 'bold'}}>HT/WT: </span>
+                  {determineHeight(player.heightInInches)}, {player.weightInPounds} lbs
+                </p>
+                <p style={{ margin: '0px' }}>
+                  <span style={{fontWeight: 'bold'}}>Born: </span>
+                  {player.birthDate}, ({determineAge(player.birthDate)})
+                </p>
+                <p style={{ margin: '0px' }}>
+                  <span style={{fontWeight: 'bold'}}>Birthplace: </span>
+                  {player.birthCity.default}, {player.birthCountry}
+                </p>
+                <p style={{ margin: '0px' }}>
+                  <span style={{fontWeight: 'bold'}}>Draft: </span>
+                  {player.draftDetails.year}, {player.draftDetails.teamAbbrev} ({player.draftDetails.overallPick} overall), {getOrdinalSuffix(player.draftDetails.round)} round, {getOrdinalSuffix(player.draftDetails.pickInRound)} pick
+                </p>
+              </div>
             </div>
-          </caption>
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>League</th>
-              <th>Team</th>
-              <th>GP</th>
-              <th>G</th>
-              <th>A</th>
-              <th>PTS</th>
-              <th>+/-</th>
-              <th>PIM</th>
-              <th>SOG</th>
-              <th>SCPT</th>
-              <th>PPG</th>
-              <th>PPA</th>
-              <th>SHG</th>
-              <th>SHA</th>
-              <th>GWG</th>
-              <th>TOI/G</th>
-              <th style={{ fontSize: '8px' }}>PROD-g</th>
-              <th style={{ fontSize: '8px' }}>PROD-a</th>
-              <th style={{ fontSize: '8px' }}>PROD-p</th>
-            </tr>
-          </thead>
-          <tbody>
-            {player.seasonTotals
-              .filter(team => {
-                if (displayNHLOnly) {
-                  return team.gameTypeId === 2 && (team.leagueAbbrev === 'NHL')
-                } else {
-                  return team.gameTypeId === 2
-                    // && (team.leagueAbbrev === 'NHL')
-                    // || (team.leagueAbbrev === 'AHL')
-                    // || (team.leagueAbbrev === 'KHL')
-                }
-              }
-              )
-              .map((team, index) => (
-                <tr key={index}>
-                  <td>{team.season.toString().substring(2, 4)}-{team.season.toString().substring(6, 8)}</td>
-                  <td>{team.leagueAbbrev}</td>
-                  <td>{team.teamName.default}</td>
-                  <td>{team.gamesPlayed}</td>
-                  <td>{team.goals}</td>
-                  <td>{team.assists}</td>
-                  <td>{team.points}</td>
-                  <td>{team.plusMinus}</td>
-                  <td>{team.pim}</td>
-                  <td>{team.shots}</td>
-                  <td>{team.shootingPctg ? (team.shootingPctg * 100).toFixed(1) : ''}</td>
-                  <td>{team.powerPlayGoals}</td>
-                  <td>{team.powerPlayPoints != undefined ? team.powerPlayPoints - team.powerPlayGoals : ''}</td>
-                  <td>{team.shorthandedGoals}</td>
-                  <td>{team.shorthandedPoints != undefined ? team.shorthandedPoints - team.shorthandedGoals : ''}</td>
-                  <td>{team.gameWinningGoals}</td>
-                  <td>{team.avgToi}</td>
-                  <td>{team.avgToi ? calculatePROD(team.goals, team.avgToi, team.gamesPlayed) : ''}</td>
-                  <td>{team.avgToi ? calculatePROD(team.assists, team.avgToi, team.gamesPlayed) : ''}</td>
-                  <td>{team.avgToi ? calculatePROD(team.points, team.avgToi, team.gamesPlayed) : ''}</td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </div>
-      <div style={{ margin: '0px 50px' }}>
-        <PercentChanceToScore playerId={playerId} season={'20232024'} gameType={2} />
-      </div>
+          </div>
 
 
-      <div style={{ height: '200px' }} />
-    </>
+          <div style={{ width: '100%', padding: '22px 22px 22px 0px' }}>
+            <div style={{
+              color: '#212529',
+              backgroundColor: '#D1ECF9',
+              border: 'solid 10px #D1ECF9',
+              borderRadius: '10px',
+              display: 'flex',
+              fontSize: '14px',
+              height: '78px',
+              margin: '10px',
+              width: '100%',
+            }}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '120px',
+              }}>
+                <p style={{ margin: '0px', fontSize: '16px', fontWeight: 'bold' }}>
+                  {getSeasonYearRange(player.featuredStats.season)} Season
+                </p>
+              </div>
+              <table
+                style={{
+                  marginLeft: '20px',
+                  width: 'calc(100% - 140px)',
+                  textAlign: 'center',
+                  fontWeight: 'bold'
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th>GP</th>
+                    <th>G</th>
+                    <th>A</th>
+                    <th>PTS</th>
+                    <th>+/-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.gamesPlayed}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.goals}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.assists}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.points}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.plusMinus}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <div style={{
+              color: '#212529',
+              backgroundColor: '#D1ECF9',
+              border: 'solid 10px #D1ECF9',
+              borderRadius: '10px',
+              display: 'flex',
+              fontSize: '14px',
+              height: '78px',
+              margin: '10px',
+              width: '100%',
+            }}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '120px',
+              }}>
+                <p style={{ margin: '0px', fontSize: '16px', fontWeight: 'bold' }}>
+                  Career
+                </p>
+              </div>
+              <table
+                style={{
+                  marginLeft: '20px',
+                  width: 'calc(100% - 140px)',
+                  textAlign: 'center',
+                  fontWeight: 'bold'
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th>GP</th>
+                    <th>G</th>
+                    <th>A</th>
+                    <th>PTS</th>
+                    <th>+/-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.gamesPlayed}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.goals}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.assists}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.points}</td>
+                    <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.plusMinus}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: "column", margin: '0px 50px' }}>
+          <SkaterStatsBySeasonTable player={player} />
+        </div>
+
+        <div style={{ height: '200px' }} />
+      </div>        
+    </div>
   )
 }
