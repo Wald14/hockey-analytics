@@ -1,0 +1,28 @@
+.footer-container{
+  align-items: center;
+  background-color: var(--dark-grey);
+  border-top: solid 24px var(--ice-blue);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  padding: 24px;
+}
+
+.footer-img{
+  padding: 0px;
+  width: 60px;
+}
+
+.footer-p1,
+.footer-p2 {
+  margin: 0px;
+}
+
+.footer-p1{
+  font-size: 18px;
+}
+
+.footer-p2{
+  font-size: 14px
+}

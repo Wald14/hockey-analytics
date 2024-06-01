@@ -1,13 +1,11 @@
 // React Router Dom
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+// Pages
+import * as Pages from'./pages'
+
 // Components
-import MainNavbar from './components/MainNavbar'
-import StandingsPage from './pages/StandingsPage'
-import TeamsPage from './pages/TeamsPage';
-import TeamPage from './pages/TeamPage';
-import PlayerPage from './pages/PlayerPage'
-import TestPage from './pages/TestPage';
+import { Footer, MainNavbar } from './components';
 
 // CSS and Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,19 +15,22 @@ function App() {
 
   return (
     <BrowserRouter>
+
       <MainNavbar />
+
       <Routes>
         {/* <Route path='/' element={} /> */}
-        <Route path='/standings' element={<StandingsPage />} />
-        <Route path='/teams' element={<TeamsPage />} />
+        <Route path='/standings' element={<Pages.StandingsPage />} />
+        <Route path='/teams' element={<Pages.TeamsPage />} />
 
+        <Route path='/player/:playerId' element={<Pages.PlayerPage />} />
+        <Route path='/team/roster/:teamAbbrev' element={<Pages.TeamPage />} />
 
-        <Route path='/player/:playerId' element={<PlayerPage />} />
-        <Route path='/team/roster/:teamAbbrev' element={<TeamPage />} />
-
-
-        <Route path='/test' element={<TestPage/>}/>
+        <Route path='/test' element={<Pages.TestPage/>}/>
       </Routes>
+
+      <Footer />
+
     </BrowserRouter>
   )
 }
