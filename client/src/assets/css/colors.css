@@ -22,11 +22,11 @@ https://coolors.co/gradient-palette/a9dff7-f8f9fa?number=7
   --dg-lg-000: #F8F9FA;
 
     /* Gradiant Between --ice-blue & --light-grey */
-    --dg-lg-600: #A9DFF7;
-    --dg-lg-500: #B6E3F8;
-    --dg-lg-400: #C3E8F8;
-    --dg-lg-300: #D1ECF9;
-    --dg-lg-200: #DEF0F9;
-    --dg-lg-100: #EBF5FA;
-    --dg-lg-000: #F8F9FA;
+    --iceb-lg-600: #A9DFF7;
+    --iceb-lg-500: #B6E3F8;
+    --iceb-lg-400: #C3E8F8;
+    --iceb-lg-300: #D1ECF9;
+    --iceb-lg-200: #DEF0F9;
+    --iceb-lg-100: #EBF5FA;
+    --iceb-lg-000: #F8F9FA;
 }

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 // Components
 import PlayerInfoSection from '../components/PlayerInfoSection'
 import SkaterStatsBySeasonTable from '../components/tables/SkaterStatsBySeasonTable'
+import { Loading } from '../components'
 
 // Utils
 import { getPlayerInfo } from '../utils/api/nhle.routes'
@@ -25,7 +26,7 @@ export default function PlayerPage() {
   }, [playerId])
 
   // Loading
-  if (!player) return <></>
+  if (!player) return <Loading />
 
   return (
     <div className='page-container'>

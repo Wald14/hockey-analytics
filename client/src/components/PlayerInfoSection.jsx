@@ -5,120 +5,72 @@ import {
   getSeasonYearRange
 } from '../utils/math'
 
+import './player-info-section.css'
+
 export default function PlayerInfoSection({ player }) {
 
 
 
   return (
 
-    <div style={{ display: 'flex', margin: '20px 50px' }}>
+    <div className='player-info-main-component' >
 
-      <div style={{ display: 'flex', width: 'max-content', textWrap: 'nowrap', color: '#212529', padding: '22px 12px 22px 22px' }}>
-        <img
-          src={player.headshot}
-          alt={`Headshot of ${player.firstName.default} ${player.lastName.default}`}
-          style={{
-            backgroundColor: '#D4D6D7',
-            border: 'solid 2px #B0B2B4',
-            borderRadius: '50%',
-            height: '160px',
-            width: '160px',
-          }}
-        />
-        <div style={{ paddingLeft: '32px' }}>
-          <h2>{player.firstName.default} {player.lastName.default}</h2>
-          <div style={{ display: 'flex' }}>
+      <div className='player-info-left-container'>
+        <div className='player-info-headshot-container'>
+          <img
+            src={player.headshot}
+            alt={`Headshot of ${player.firstName.default} ${player.lastName.default}`}
+            className='player-info-headshot'
+          />
+        </div>
+
+        <div className='player-info-details-container'>
+          <p className='player-info-details-container-header'>{player.firstName.default} {player.lastName.default}</p>
+
+          <div className='player-info-details-sub-container'>
             <img
               src={player.teamLogo}
               alt={`${player.fullTeamName.default} Logo`}
-              style={{
-                width: '48px',
-                height: '32px',
-                paddingRight: '8px',
-                border: ''
-              }}
+              className='player-info-details-sub-container-logo'
             />
-            <p
-              style={{
-                fontSize: '18px',
-                margin: '0px',
-                width: '56px',
-                height: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderLeft: 'solid 1px #E0E0E0'
-              }}
-            >
+
+            <p className='player-info-details-sub-container-text'>
               #{player.sweaterNumber}
             </p>
-            <p
-              style={{
-                fontSize: '18px',
-                margin: '0px',
-                width: '56px',
-                height: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderLeft: 'solid 1px #E0E0E0'
-              }}
-            >
+            <p className='player-info-details-sub-container-text'>
               {player.position}
             </p>
           </div>
-          <div style={{ fontSize: '14px' }}>
-            <p style={{ margin: '0px' }}>
-              <span style={{ fontWeight: 'bold' }}>HT/WT: </span>
+
+          <div>
+            <p className='player-info-details-sub-container-text-2'>
+              <span className='player-info-bold'>HT/WT: </span>
               {determineHeight(player.heightInInches)}, {player.weightInPounds} lbs
             </p>
-            <p style={{ margin: '0px' }}>
-              <span style={{ fontWeight: 'bold' }}>Born: </span>
+            <p className='player-info-details-sub-container-text-2'>
+              <span className='player-info-bold'>Born: </span>
               {player.birthDate}, ({determineAge(player.birthDate)})
             </p>
-            <p style={{ margin: '0px' }}>
-              <span style={{ fontWeight: 'bold' }}>Birthplace: </span>
+            <p className='player-info-details-sub-container-text-2'>
+              <span className='player-info-bold'>Birthplace: </span>
               {player.birthCity.default}, {player.birthCountry}
             </p>
-            <p style={{ margin: '0px' }}>
-              <span style={{ fontWeight: 'bold' }}>Draft: </span>
+            <p className='player-info-details-sub-container-text-2'>
+              <span className='player-info-bold'>Draft: </span>
               {player.draftDetails.year}, {player.draftDetails.teamAbbrev} ({player.draftDetails.overallPick} overall), {getOrdinalSuffix(player.draftDetails.round)} round, {getOrdinalSuffix(player.draftDetails.pickInRound)} pick
             </p>
           </div>
         </div>
       </div>
 
-
-      <div style={{ width: '100%', padding: '22px 22px 22px 0px' }}>
-        <div style={{
-          color: '#212529',
-          backgroundColor: '#D1ECF9',
-          border: 'solid 10px #D1ECF9',
-          borderRadius: '10px',
-          display: 'flex',
-          fontSize: '14px',
-          height: '78px',
-          margin: '10px',
-          width: '100%',
-        }}
-        >
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '120px',
-          }}>
-            <p style={{ margin: '0px', fontSize: '16px', fontWeight: 'bold' }}>
+      <div className='player-info-right-container'>
+        <div className='player-info-summary-container'>
+          <div className='player-info-summary-title-container'>
+            <p className='player-info-summary-title'>
               {getSeasonYearRange(player.featuredStats.season)} Season
             </p>
           </div>
-          <table
-            style={{
-              marginLeft: '20px',
-              width: 'calc(100% - 140px)',
-              textAlign: 'center',
-              fontWeight: 'bold'
-            }}
-          >
+          <table className='player-info-summary-table'>
             <thead>
               <tr>
                 <th>GP</th>
@@ -130,46 +82,34 @@ export default function PlayerInfoSection({ player }) {
             </thead>
             <tbody>
               <tr>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.gamesPlayed}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.goals}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.assists}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.points}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.subSeason.plusMinus}</td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.subSeason.gamesPlayed}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.subSeason.goals}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.subSeason.assists}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.subSeason.points}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.subSeason.plusMinus}
+                </td>
               </tr>
             </tbody>
           </table>
 
         </div>
 
-        <div style={{
-          color: '#212529',
-          backgroundColor: '#D1ECF9',
-          border: 'solid 10px #D1ECF9',
-          borderRadius: '10px',
-          display: 'flex',
-          fontSize: '14px',
-          height: '78px',
-          margin: '10px',
-          width: '100%',
-        }}
-        >
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '120px',
-          }}>
-            <p style={{ margin: '0px', fontSize: '16px', fontWeight: 'bold' }}>
+        <div className='player-info-summary-container'>
+          <div className='player-info-summary-title-container'>
+            <p className='player-info-summary-title'>
               Career
             </p>
           </div>
-          <table
-            style={{
-              marginLeft: '20px',
-              width: 'calc(100% - 140px)',
-              textAlign: 'center',
-              fontWeight: 'bold'
-            }}
-          >
+          <table className='player-info-summary-table'>
             <thead>
               <tr>
                 <th>GP</th>
@@ -181,11 +121,21 @@ export default function PlayerInfoSection({ player }) {
             </thead>
             <tbody>
               <tr>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.gamesPlayed}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.goals}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.assists}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.points}</td>
-                <td style={{ fontSize: '24px' }}>{player.featuredStats.regularSeason.career.plusMinus}</td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.career.gamesPlayed}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.career.goals}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.career.assists}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.career.points}
+                </td>
+                <td className='player-info-summary-td'>
+                  {player.featuredStats.regularSeason.career.plusMinus}
+                </td>
               </tr>
             </tbody>
           </table>
