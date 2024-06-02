@@ -6,6 +6,7 @@ https://coolors.co/gradient-palette/a9dff7-f8f9fa?number=7
   /* Main Color Scheme */
   --dark-grey: #212529; /* Primary Color - Header or Footer Background*/
   --deep-blue: #0A74DA; /* Secondary Color - Primary Buttons and Links*/
+  --deep-blue-rgb: 10, 116, 218; /* Example: rgba(var(--deep-blue-rgb), 0.5) */
   --ice-blue: #A9DFF7; /* Accent Color - Cards/Sections Background */
   --bright-cyan: #17C3B2; /* Highlight Color - Secondary Buttons and Hover Effects*/
   --light-grey: #F8F9FA; /* Neutral Color - Background Color */

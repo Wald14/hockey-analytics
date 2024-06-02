@@ -1,6 +1,9 @@
 // React & React-Router-Dom
 import { useState } from 'react'
 
+// Components
+import { Loading } from '../';
+
 // Utils
 import { calculatePROD } from '../../utils/math'
 
@@ -8,47 +11,86 @@ import { calculatePROD } from '../../utils/math'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form';
 
+// CSS
+import './skater-stats-by-season.css'
 
+export default function SkaterStatsBySeasonTable({ player }) {
 
-export default function SkaterStatsBySeasonTable({player}){
+  const defaultToggle = player.seasonTotals.find(season => season.leagueAbbrev === "NHL") ? true : false
 
-  const [displayNHLOnly, setDisplayNHLOnly] = useState(true)
+  const [displayNHLOnly, setDisplayNHLOnly] = useState(defaultToggle)
 
   // Loading
-  if (!player) return <p>Loading...</p>
-
+  if (!player) return <></>
 
   return (
-    <>
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <h3>Regular Season</h3>
-        <Form style={{ alignSelf: 'center' }}>
+    <div className='skater-stats-season-table-main-container'>
+      <div className='skater-stats-season-table-title-container'>
+        <h3 className='skater-stats-season-table-title'>Regular Season</h3>
+        <Form className='skater-stats-season-table-form'>
           <Form.Switch
-            id="display-nhl-only-switch"
-            label="Display NHL Seasons Only"
             checked={displayNHLOnly}
+            className='skater-stats-season-table-switch'
+            label="NHL Only"
             onChange={() => setDisplayNHLOnly(prevState => !prevState)}
           />
         </Form>
       </div>
       <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
-        <caption>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GP: Games Played</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>G: Goals</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>A: Assists</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PTS: Points (Goals + Assists)</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SOG: Shots on Goal</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SCPT: Scoring Percentage (Goals/Shots)</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Goals</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PPG: Power Play Assists</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHG: Short Handed Goals</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>SHA: Short Handed Assists</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>GWG: Game Winning Goals</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>TOI/G: Time On Ice per Game</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-g: Average ice time per goal recorded</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-a: Average ice time per assist recorded</p>
-            <p style={{ margin: '0px', flex: '1 0 33%', maxWidth: '33%' }}>PROD-p: Average ice time per point recorded</p>
+        <caption className='skater-stats-season-table-glossary-item-caption'>
+          <div className='skater-stats-season-table-glossary-item-container'>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>+/-: </span>Plus Minus Rating
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>PIM: </span>Penalty Minutes
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>S: </span>Shots on Goal
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>A: </span>Assists
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>PPA: </span>Power Play Assists
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>SHA: </span>Short Handed Assists
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>G: </span>Goals
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>PPG: </span>Power Play Goal
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>SHG: </span>Short Handed Goals
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>GP: </span>Games Played
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>PROD: </span>: Average ice time per point recorded
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>SCPT: </span>Scoring Percentage (Goals/Shots)
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>GWG: </span>Game Winning Goals
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>PTS: </span>Points (Goals + Assists)
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+              <span className='skater-stats-season-bold'>TOI/G: </span>Time On Ice per Game
+            </p>
+            {/* <p className='skater-stats-season-table-glossary-item'>
+            <span className='skater-stats-season-bold'>PROD-g: </span>Average ice time per goal recorded
+            </p>
+            <p className='skater-stats-season-table-glossary-item'>
+            <span className='skater-stats-season-bold'>PROD-a: </span>Average ice time per assist recorded
+            </p> */}
+
           </div>
         </caption>
         <thead>
@@ -62,7 +104,7 @@ export default function SkaterStatsBySeasonTable({player}){
             <th>PTS</th>
             <th>+/-</th>
             <th>PIM</th>
-            <th>SOG</th>
+            <th>S</th>
             <th>SCPT</th>
             <th>PPG</th>
             <th>PPA</th>
@@ -92,7 +134,7 @@ export default function SkaterStatsBySeasonTable({player}){
               <tr key={index}>
                 <td>{team.season.toString().substring(2, 4)}-{team.season.toString().substring(6, 8)}</td>
                 <td>{team.leagueAbbrev}</td>
-                <td>{team.teamName.default}</td>
+                <td className='skater-stats-season-nowrap'>{team.teamName.default}</td>
                 <td>{team.gamesPlayed}</td>
                 <td>{team.goals}</td>
                 <td>{team.assists}</td>
@@ -114,7 +156,7 @@ export default function SkaterStatsBySeasonTable({player}){
             ))}
         </tbody>
       </Table>
-    </>
+    </div>
 
   )
 }
