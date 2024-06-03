@@ -12,7 +12,7 @@ import Table from 'react-bootstrap/Table'
 import Nav from 'react-bootstrap/Nav'
 
 //CSS
-import './team-navbar.css'
+import './standings.css'
 
 export default function StandingsTable() {
 
@@ -71,7 +71,8 @@ export default function StandingsTable() {
                   src={team.teamLogo}
                   className='standings-team-logo'
                 />
-                  {team.teamCommonName.default}
+                  <span className='standings-full-team-name'>{team.teamCommonName.default}</span>
+                  <span className='standings-abbrev-team-name'>{team.teamAbbrev.default}</span>
 
               </Nav.Link>
             </td>

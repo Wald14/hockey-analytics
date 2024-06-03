@@ -49,3 +49,51 @@
   text-wrap: nowrap;
   margin: 0px;
 }
+
+@media screen and (max-width: 768px) {
+  .standings-sticky-two {
+    left: 40px;
+    min-width: 130px;
+    padding-left: 0px;
+  }
+
+  .standings-table {
+    font-size: 12px;
+  }
+
+  .standings-table td {
+    min-width: 40px;
+    padding: 3px !important; 
+  }
+
+  .standings-team-logo{
+    border-radius: 50%;
+    height: 24px;
+    margin-right: 4px;
+    width: 36px;
+  }
+}
+
+@media (min-width: 526px) {
+  .standings-full-team-name {
+    display: inline;
+  }
+  .standings-abbrev-team-name {
+    display: none;
+  }
+}
+
+@media (max-width: 525px) {
+  .standings-full-team-name {
+    display: none;
+  }
+  .standings-abbrev-team-name {
+    display: inline;
+  }
+
+  .standings-sticky-two {
+    left: 40px;
+    min-width: 75px;
+    padding-left: 0px;
+  }
+}
