@@ -22,8 +22,8 @@ export default function RosterPlayerInfoTable({ playerList }) {
               <th className='rt-bg-c'>Ht</th>
               <th className='rt-bg-c'>Wt</th>
               <th className='rt-bg-c'>Shot</th>
-              <th className='rt-bg-c'>Birth Place</th>
               <th className='rt-bg-c'>Birthdate</th>
+              <th className='rt-bg-c'>Birth Place</th>
             </tr>
           </thead>
           <tbody>
@@ -47,8 +47,8 @@ export default function RosterPlayerInfoTable({ playerList }) {
                 <td className='rt-bg-c'>{determineHeight(player.heightInInches)}</td>
                 <td className='rt-bg-c'>{player.weightInPounds}</td>
                 <td className='rt-bg-c'>{player.shootsCatches}</td>
-                <td className='rt-bg-c'>{player.birthCity.default}, {player.birthCountry}</td>
-                <td className='rt-bg-c'>{player.birthDate}</td>
+                <td className='rt-bg-c no-text-wrap' >{player.birthDate}</td>
+                <td className='rt-bg-c '>{player.birthCity.default}, {player.birthCountry}</td>
               </tr>
             ))}
           </tbody>
