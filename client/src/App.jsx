@@ -19,7 +19,8 @@ function App() {
       <MainNavbar />
 
       <Routes>
-        {/* <Route path='/' element={} /> */}
+        <Route path='/' element={<Pages.StandingsPage />} />
+
         <Route path='/standings' element={<Pages.StandingsPage />} />
         <Route path='/teams' element={<Pages.TeamsPage />} />
 
