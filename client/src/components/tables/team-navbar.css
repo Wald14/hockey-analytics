@@ -1,0 +1,51 @@
+.rt-bg-c,
+.rt-bg-c-sticky-one,
+.rt-bg-c-sticky-two {
+  background-color: var(--light-grey) !important;
+}
+
+.standings-sticky-one {
+  left: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+.standings-sticky-two {
+  border-right: solid 1px var(--dg-lg-100);
+  left: 50px;
+  min-width: 160px;
+  position: sticky;
+  z-index: 1;
+}
+
+.standings-table {
+  font-size: 14px;
+  text-align: center;
+}
+
+.standings-table tr {
+  border-block-end: solid 1px var(--dg-lg-100);
+}
+
+.standings-table td {
+  min-width: 50px;
+  padding: 6px !important; 
+  vertical-align: middle;
+}
+
+.standings-team-link{
+  display: flex;
+  text-align: left;
+}
+
+.standings-team-logo{
+  border-radius: 50%;
+  height: 32px;
+  margin-right: 4px;
+  width: 48px;
+}
+
+.standings-team-name{
+  text-wrap: nowrap;
+  margin: 0px;
+}

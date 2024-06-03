@@ -1,13 +1,18 @@
 // React
 import { useState, useEffect } from 'react';
 
-// Utils -> Api routes
+// Components
+import { Loading } from '../'
+
+// Utils
 import { getStandings } from '../../utils/api/nhle.routes';
 
 // React Bootstrap
 import Table from 'react-bootstrap/Table'
 import Nav from 'react-bootstrap/Nav'
 
+//CSS
+import './team-navbar.css'
 
 export default function StandingsTable() {
 
@@ -27,14 +32,14 @@ export default function StandingsTable() {
   }, [])
 
   // Loading
-  if (standings.length === 0) return <p>Loading...</p>
+  if (standings.length === 0) return <Loading />
 
   return (
-    <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
+    <Table hover size='sm' responsive className='standings-table'>
       <thead>
         <tr>
-          <th>Pl</th>
-          <th>Team</th>
+          <th className='standings-sticky-one'>Pl</th>
+          <th className='standings-sticky-two'>Team</th>
           <th>GP</th>
           <th>W</th>
           <th>L</th>
@@ -56,23 +61,19 @@ export default function StandingsTable() {
       <tbody>
         {standings.map((team, index) => (
           <tr key={team.teamCommonName.default}>
-            <td>{index + 1}</td>
-            <td>
-              <div style={{ display: 'flex' }}>
-                <Nav.Link
-                  href={`/team/roster/${team.teamAbbrev.default}`}
-                  style={{ textDecoration: 'underline' }}>
-                  <img
-                    src={team.teamLogo}
-                    style={{
-                      width: '32px',
-                      borderRadius: '50%',
-                      marginRight: '4px'
-                    }}
-                  />
+            <td className='standings-sticky-one'>{index + 1}</td>
+            <td className='standings-sticky-two'>
+              <Nav.Link
+                href={`/team/roster/${team.teamAbbrev.default}`}
+                className='standings-team-link'
+              >
+                <img
+                  src={team.teamLogo}
+                  className='standings-team-logo'
+                />
                   {team.teamCommonName.default}
-                </Nav.Link>
-              </div>
+
+              </Nav.Link>
             </td>
             <td>{team.gamesPlayed}</td>
             <td>{team.wins}</td>
@@ -83,8 +84,8 @@ export default function StandingsTable() {
             <td>{team.regulationPlusOtWins}</td>
             <td>{team.shootoutWins}</td>
             <td>{team.shootoutLosses}</td>
-            <td>{`${team.homeWins}-${team.homeLosses}-${team.homeTies}`}</td>
-            <td>{`${team.roadWins}-${team.roadLosses}-${team.roadTies}`}</td>
+            <td className='standings-team-name'>{`${team.homeWins}-${team.homeLosses}-${team.homeTies}`}</td>
+            <td className='standings-team-name'>{`${team.roadWins}-${team.roadLosses}-${team.roadTies}`}</td>
             <td>{team.goalFor}</td>
             <td>{team.goalAgainst}</td>
             <td>{team.goalDifferential}</td>

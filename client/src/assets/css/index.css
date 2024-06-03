@@ -1,2 +1,11 @@
 @import "./colors.css";
 @import "./page.css";
+
+
+.no-text-wrap{
+  text-wrap: none;
+}
+
+.underline{
+  text-decoration: underline;
+}

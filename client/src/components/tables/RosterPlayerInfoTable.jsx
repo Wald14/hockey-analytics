@@ -1,44 +1,58 @@
 // Utils
 import { determineHeight, determineAge } from '../../utils/math'
 
-// React Boostrap
+// React Bootstrap
 import Table from 'react-bootstrap/Table'
 
+// CSS
+import './roster-player-info-table.css'
 
-export default function RosterPlayerInfoTable({playerList}){
 
+export default function RosterPlayerInfoTable({ playerList }) {
   return (
-    <Table striped bordered hover size='sm' responsive style={{ textAlign: 'center', fontSize: '12px' }}>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>#</th>
-          <th>POS</th>
-          <th>Age</th>
-          <th>Ht</th>
-          <th>Wt</th>
-          <th>Shot</th>
-          <th>Birth Place</th>
-          <th>Birthdate</th>
-        </tr>
-      </thead>
-      <tbody>
-        {playerList.map((player, index) => (
-          <tr key={player.id} style={{ verticalAlign: 'middle' }}>
-            <td><img src={player.headshot} style={{ width: '32px', borderRadius: '50%' }} /></td>
-            <td><a href={`/player/${player.id}`}>{player.firstName.default} {player.lastName.default}</a></td>
-            <td>{player.sweaterNumber}</td>
-            <td>{player.positionCode}</td>
-            <td>{determineAge(player.birthDate)}</td>
-            <td>{determineHeight(player.heightInInches)}</td>
-            <td>{player.weightInPounds}</td>
-            <td>{player.shootsCatches}</td>
-            <td>{player.birthCity.default}, {player.birthCountry}</td>
-            <td>{player.birthDate}</td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
-  )
+      <div className='roster-table-container'>
+        <Table responsive hover size="sm" className='roster-table'>
+          <thead>
+            <tr>
+              <th className='rt-bg-c-sticky-one'></th>
+              <th className='rt-bg-c-sticky-two'>Name</th>
+              <th className='rt-bg-c'>#</th>
+              <th className='rt-bg-c'>POS</th>
+              <th className='rt-bg-c'>Age</th>
+              <th className='rt-bg-c'>Ht</th>
+              <th className='rt-bg-c'>Wt</th>
+              <th className='rt-bg-c'>Shot</th>
+              <th className='rt-bg-c'>Birth Place</th>
+              <th className='rt-bg-c'>Birthdate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {playerList.map((player) => (
+              <tr key={player.id} style={{ verticalAlign: 'middle' }}>
+                <td className='rt-bg-c-sticky-one'>
+                  <img
+                    src={player.headshot}
+                    className='roster-table-headshot'
+                    alt={`${player.firstName.default} ${player.lastName.default}`}
+                  />
+                </td>
+                <td className='roster-table-player-name  rt-bg-c-sticky-two'>
+                  <a href={`/player/${player.id}`}>
+                    {player.firstName.default} {player.lastName.default}
+                  </a>
+                </td>
+                <td className='rt-bg-c'>{player.sweaterNumber}</td>
+                <td className='rt-bg-c'>{player.positionCode}</td>
+                <td className='rt-bg-c'>{determineAge(player.birthDate)}</td>
+                <td className='rt-bg-c'>{determineHeight(player.heightInInches)}</td>
+                <td className='rt-bg-c'>{player.weightInPounds}</td>
+                <td className='rt-bg-c'>{player.shootsCatches}</td>
+                <td className='rt-bg-c'>{player.birthCity.default}, {player.birthCountry}</td>
+                <td className='rt-bg-c'>{player.birthDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+  );
 }

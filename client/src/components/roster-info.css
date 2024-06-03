@@ -1,0 +1,16 @@
+.roster-info-tables-container{
+  margin: 25px auto 0px;
+}
+
+.roster-info-header{
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.roster-info-table-header{
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--dark-grey);
+  margin: 24px 0px 8px;
+}

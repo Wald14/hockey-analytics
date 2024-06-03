@@ -38,7 +38,7 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
 })
 
 // Retrieve Team's Current Roster
-router.get('/roster/:teamAbbrev', async (req, res) => {
+router.get('/roster/:teamAbbrev/current', async (req, res) => {
   try {
     const {teamAbbrev} = req.params
     const response = await fetch(`${nhleBaseURL}/roster/${teamAbbrev}/current`);

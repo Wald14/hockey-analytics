@@ -26,9 +26,9 @@ export async function getPlayerGameLog(playerId, season, gameType) {
 
 
 // Retrieve Team's Current Roster
-export async function getRoster(teamAbbrev) {
+export async function getCurrentRoster(teamAbbrev) {
   try {
-    const query = await fetch(`/api/nhle/roster/${teamAbbrev}`)
+    const query = await fetch(`/api/nhle/roster/${teamAbbrev}/current`)
     const results = await query.json()
     return results
   } catch (err) {

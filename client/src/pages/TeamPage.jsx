@@ -10,14 +10,10 @@ export default function TeamPage() {
   const { teamAbbrev } = useParams()
 
   return (
-    <div
-      style={{
-        margin: '20px 50px 50px',
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    >
-      <RosterInfo teamAbbrev={teamAbbrev} />
+    <div className='page-container'>
+      {/* <div className='page-sub-container'> */}
+        <RosterInfo teamAbbrev={teamAbbrev} />
+      {/* </div> */}
     </div>
   )
 }

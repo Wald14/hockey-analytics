@@ -1,9 +1,6 @@
 // React & React-Router-Dom
 import { useState } from 'react'
 
-// Components
-import { Loading } from '../';
-
 // Utils
 import { calculatePROD } from '../../utils/math'
 
