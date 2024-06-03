@@ -5,6 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import './MainNavbar.css'
 
 export default function MainNavbar() {
+
+
   return (
     <Navbar
       bg="dark"
@@ -17,7 +19,7 @@ export default function MainNavbar() {
       >
         <Navbar.Brand href="/" className='navbar-brand'>
           <img
-            src="/src/assets/img/logos/blue-line-metrics-logo.png"
+            src="public/blue-line-metrics-logo.png"
             width="40"
             height="40"
             alt="Blue line metrics logo"

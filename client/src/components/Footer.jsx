@@ -9,7 +9,7 @@ export default function Footer() {
             <img
               alt="Blue line metrics logo"
               className='footer-img'
-              src="/src/assets/img/logos/blue-line-metrics-logo.png"
+              src="public/blue-line-metrics-logo.png"
             />
             <p className='footer-p1'>Blue Line Metrics</p>
             <p className='footer-p2'>
