@@ -1,8 +1,42 @@
-# React + Vite
+# Hockey Analytics
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+Currently in development but will server as a site that will pull advanced analytics from the NHL using a proxy server to access the NHL's free api.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Website Links](#website-links)
+- [Technical Requirements](#technical-requirements)
+- [Questions](#questions)
+- [Acknowledgements and Credits](#acknowledgements-and-credits)
+- [Preview](#preview)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Website Links
+- [Deployed App Through Heroku]()
+- [GitHub Repo](https://github.com/wald14)
+
+## Technical Requirements
+
+Technical requirements for the application include:
+
+- React
+- Mongoose ORM
+- MongoDB
+- Express.js
+- Node.js
+- Heroku
+- Bootstrap
+- chart.js
+- Bcrypt
+- dotenv
+- cookie-parser
+- jsonwebtoken
+- Insomnia
+- MVC Structure
+- Github
+- Vite
+
+## Questions
+Questions can be received on the [Github Repository](https://github.com/wald14) for this application. Please make a new issue.
+
+## Acknowledgements and Credits
+Starter code for generic login/logout functionality was provided by Gary Almes' [mern-auth-starter-kit](https://github.com/garytalmes/mern-auth-starter-kit). This was modified to be used for admin login and not avaliable to the general user.
