@@ -1,4 +1,5 @@
 import './footer.css'
+import logo from '../assets/img/logos/blue-line-metrics-logo.png'
 
 export default function Footer() {
   const date = new Date()
@@ -9,7 +10,7 @@ export default function Footer() {
             <img
               alt="Blue line metrics logo"
               className='footer-img'
-              src="public/blue-line-metrics-logo.png"
+              src={logo}
             />
             <p className='footer-p1'>Blue Line Metrics</p>
             <p className='footer-p2'>
