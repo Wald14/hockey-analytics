@@ -50,6 +50,11 @@
   margin: 0px;
 }
 
+.standings-full-team-name,
+.standings-abbrev-team-name {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 768px) {
   .standings-sticky-two {
     left: 40px;

@@ -4,6 +4,9 @@ const router = require('express').Router();
 
 const nhleBaseURL = 'https://api-web.nhle.com/v1'
 
+//-----------------------------------------------------------------------------------
+// SINGLE PLAYER
+//-----------------------------------------------------------------------------------
 
 // Retrieve Player Information
 router.get('/player/:playerId/landing', async (req, res) => {
@@ -37,6 +40,10 @@ router.get('/player/:playerId/game-log/:season/:gameType', async (req, res) => {
   }
 })
 
+//-----------------------------------------------------------------------------------
+// ROSTER
+//-----------------------------------------------------------------------------------
+
 // Retrieve Team's Current Roster
 router.get('/roster/:teamAbbrev/current', async (req, res) => {
   try {
@@ -52,6 +59,46 @@ router.get('/roster/:teamAbbrev/current', async (req, res) => {
     res.status(500).json({err: 'Failed to fetch roster'})
   }
 })
+
+// Retrieve Team's Roster Stats
+router.get('/roster-stats/:teamAbbrev/:season/:gameType', async (req, res) => {
+  try{
+    const {teamAbbrev, season, gameType} = req.params
+    const response = await fetch(`${nhleBaseURL}/club-stats/${teamAbbrev}/${season}/${gameType}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json()
+    res.json(data)
+  }catch(err){
+    console.log('Error fetchiung roster stats:', err)
+    res.status(500).json({err: 'Failed to fetch roster'})
+  }
+})
+
+//-----------------------------------------------------------------------------------
+// TEAM
+//-----------------------------------------------------------------------------------
+//https://api-web.nhle.com/v1/club-stats-season/MIN
+router.get('/team/:teamAbbrev/seasons', async (req, res) => {
+  try {
+    const {teamAbbrev} = req.params
+    const response = await fetch(`${nhleBaseURL}/club-stats-season/${teamAbbrev}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json()
+    res.json(data)
+  } catch (err) {
+    console.log('Error fetchiung team season log:', err)
+    res.status(500).json({err: 'Failed to fetch team season log'})
+  }
+})
+
+
+//-----------------------------------------------------------------------------------
+// LEAGUE
+//-----------------------------------------------------------------------------------
 
 // Retrieve the most up to date standings
 router.get('/standings', async (req, res) => {

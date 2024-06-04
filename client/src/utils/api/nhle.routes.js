@@ -1,5 +1,8 @@
 // API Routes that hit the nhle.routes.js file on the proxy server
 
+//-----------------------------------------------------------------------------------
+// SINGLE PLAYER
+//-----------------------------------------------------------------------------------
 
 // Retrieve Player Information
 export async function getPlayerInfo(playerId) {
@@ -24,6 +27,9 @@ export async function getPlayerGameLog(playerId, season, gameType) {
   }
 }
 
+//-----------------------------------------------------------------------------------
+// ROSTER
+//-----------------------------------------------------------------------------------
 
 // Retrieve Team's Current Roster
 export async function getCurrentRoster(teamAbbrev) {
@@ -36,6 +42,35 @@ export async function getCurrentRoster(teamAbbrev) {
   }
 }
 
+// Retrive Team's Roster with Single Season Stats
+export async function getRosterStats(teamAbbrev, season, gameType){
+  try {
+    const query = await fetch(`/api/nhle/roster-stats/${teamAbbrev}/${season}/${gameType}`)
+    const results = await query.json()
+    return results
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+//-----------------------------------------------------------------------------------
+// TEAM
+//-----------------------------------------------------------------------------------
+
+/// Retrive a list of all the seasons a team has played in
+export async function getTeamSeasons(teamAbbrev){
+  try {
+    const query = await fetch(`/api/nhle/team/${teamAbbrev}/seasons`)
+    const results = await query.json()
+    return results
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+//-----------------------------------------------------------------------------------
+// LEAGUE
+//-----------------------------------------------------------------------------------
 
 // Retrieve the most up to date standings
 export async function getStandings() {

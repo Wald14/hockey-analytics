@@ -20,7 +20,7 @@ export default function RosterInfo({ teamAbbrev }) {
   useEffect(() => {
     getCurrentRoster(teamAbbrev).then(data => {
       setRoster(data)
-      console.log(data)
+      // console.log(data)
     })
   }, [teamAbbrev])
 

@@ -5,7 +5,7 @@ import { determineHeight, determineAge } from '../../utils/math'
 import Table from 'react-bootstrap/Table'
 
 // CSS
-import './roster-player-info-table.css'
+import './roster-tables.css'
 
 
 export default function RosterPlayerInfoTable({ playerList }) {

@@ -1,0 +1,14 @@
+.roster-stats-form{
+  padding-inline: 16px;
+}
+
+.roster-stats-form-select{
+  font-size: 16px !important;
+}
+
+@media screen and (max-width: 370px){
+
+  .roster-stats-form-select{
+    font-size: 12px !important;
+  }
+}
