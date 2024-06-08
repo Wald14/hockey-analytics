@@ -7,32 +7,34 @@ import './team-nav-table.css'
 export default function TeamNavTable({ teams }) {
 
   return (
-    <Row>
+    <Row className='teamNavTable'>
       {Object.entries(teams).map(([key, value]) => {
         return (
-          <Col key={key} sm={12} md={6} className='teamNavTable-conference-col'>
+          <Col key={key} sm={6} md={6}>
             <div
               style={{
                 margin: '20px 10px 10px',
               }}
             >
-              <div 
+              {/* <div 
               style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
-              >
+              > */}
                 <h3
                   style={{
                     marginLeft: '8px',
                     borderBottom: 'solid 1px black',
                     textAlign: 'center',
-                    minWidth: '320px'
+                    paddingBottom: '4px',
+                    margin: '0px 0px 12px'
+                    // minWidth: '300px'
                   }}
                 >
                   {value.divisionName}
                 </h3>
-              </div>
+              {/* </div> */}
               {value.teams.map((team) => {
                 return (
                   <Row key={team.teamCommonName} style={{ display: 'flex', justifyContent: 'center' }}>

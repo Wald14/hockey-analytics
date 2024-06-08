@@ -1,4 +1,4 @@
-.teamNavTable-conference-col {
-  padding: 0px !important;
-  max-width: calc(100vw / 2)
+.teamNavTable {
+  width: 100%;
+  max-width: 1024px
 }
