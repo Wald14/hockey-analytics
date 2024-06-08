@@ -1,7 +1,8 @@
 // React Boostrap
 import { Row, Col } from 'react-bootstrap';
 
-
+// CSS
+import './team-nav-table.css'
 
 export default function TeamNavTable({ teams }) {
 
@@ -9,7 +10,7 @@ export default function TeamNavTable({ teams }) {
     <Row>
       {Object.entries(teams).map(([key, value]) => {
         return (
-          <Col key={key} sm={12} md={6}> {/* Adjust the xs, md, and lg values as needed */}
+          <Col key={key} sm={12} md={6} className='teamNavTable-conference-col'>
             <div
               style={{
                 margin: '20px 10px 10px',
