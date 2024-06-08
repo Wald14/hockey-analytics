@@ -26,7 +26,7 @@ function App() {
 
         <Route path='/player/:playerId' element={<Pages.PlayerPage />} />
 
-        <Route path='/team/roster/:teamAbbrev' element={<Pages.TeamRosterPage />} />
+        <Route path='/team/roster/:selection/:teamAbbrev' element={<Pages.TeamRosterPage />} />
 
         <Route path='/test' element={<Pages.TestPage/>}/>
       </Routes>
